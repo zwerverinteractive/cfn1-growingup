@@ -1,5 +1,5 @@
 {
-  "mainFile": "game/main.py", 
+  "mainFile": "run.py", 
   "use-tabs": true, 
   "venv": "", 
   "relatedProjects": [], 

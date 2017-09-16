@@ -4,7 +4,6 @@ import sys
 from script.controls import Controls
 from script.sound import Sound
 from script.images import Images
-from script.render import Render
 from script.room import Room
 from script.player import Player
 
@@ -24,7 +23,6 @@ class Engine():
 		self.objects = []
 		self.controls = Controls()
 		self.sound = Sound()
-		self.render = Render()
 		self.images = Images()
 		self.room = Room()
 		self.player = Player()
