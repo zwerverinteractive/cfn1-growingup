@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class Room():
 	def __init__(self):
+		self.overworld = True
 		self.current_room = "a1"
 		self.rect = (0,0,1280,128)
 		self.surf = pygame.Surface((1280,128))

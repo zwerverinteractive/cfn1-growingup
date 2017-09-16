@@ -45,18 +45,19 @@ class Player():
 			
 			
 		#CROSSROADS
-		if self.rect[0]+6 > 580 and self.rect[0]+6 < 596:
-			engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+6, self.rect[1] - 12))
-			if b["up"]:
-				engine.room.swap("lu")
-				self.rect[0] = 690; self.real_rect[0] = 690
-				b["up"] = False
-		elif self.rect[0]+6 > 686 and self.rect[0]+6 < 700:
-			engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+6, self.rect[1] - 12))		
-			if b["up"]:
-				engine.room.swap("ru")
-				self.rect[0] = 586; self.real_rect[0] = 586
-				b["up"] = False
+		if engine.room.overworld:
+			if self.rect[0]+6 > 580 and self.rect[0]+6 < 596:
+				engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+6, self.rect[1] - 12))
+				if b["up"]:
+					engine.room.swap("lu")
+					self.rect[0] = 690; self.real_rect[0] = 690
+					b["up"] = False
+			elif self.rect[0]+6 > 686 and self.rect[0]+6 < 700:
+				engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+6, self.rect[1] - 12))		
+				if b["up"]:
+					engine.room.swap("ru")
+					self.rect[0] = 586; self.real_rect[0] = 586
+					b["up"] = False
 				
 		""" DOWNWARD ZEBRAPATH, TOO DISORIENTING
 		if self.rect[0]+6 > 566 and self.rect[0]+6 < 586:
