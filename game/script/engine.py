@@ -3,11 +3,10 @@ import os
 import sys
 from script.controls import Controls
 from script.sound import Sound
-from script.colors import Colors
 from script.images import Images
 from script.render import Render
-
-
+from script.room import Room
+from script.player import Player
 
 class Engine():
 	def load(self):
@@ -18,25 +17,35 @@ class Engine():
 		#pygame.mouse.set_visible(False)
 		#pygame.event.set_grab(True)
 		self.clock = pygame.time.Clock()
-		self.wres = (800, 600); self.sres = (320, 200); flags = 0 #pygame.FULLSCREEN | pygame.DOUBLEBUF
+		self.wres = (800, 600); self.sres = (128, 128); flags = pygame.FULLSCREEN | pygame.DOUBLEBUF
 		self.window = pygame.display.set_mode(self.wres, flags)
 		self.screen = pygame.Surface(self.sres)
+		self.gscreen = pygame.Surface((1280,128))
+		self.objects = []
 		self.controls = Controls()
 		self.sound = Sound()
-		self.colors = Colors()
 		self.render = Render()
 		self.images = Images()
-		
+		self.room = Room()
+		self.player = Player()
 		print("Loaded and ready to go!")
 		self.running = True
 		while self.running:
-			self.update()
+			self.clock.tick()
+			self.controls.update()
+			self.screen.fill((0,0,0)); self.gscreen.fill((0,0,0))
+			self.gscreen.blit(self.room.surf, (0,0))
+			for obj in self.objects:
+				obj.update()
+				self.gscreen.blit(obj.surf, obj.rect)
+			if self.player.rect[0] > 64-8:
+				self.screen.blit(self.gscreen, (-self.player.rect[0]+64-8,0))
+			else:
+				self.screen.blit(self.gscreen, (0,0))
+			pygame.transform.scale(self.screen, self.wres, self.window)
+			pygame.display.flip()
 			if self.controls.buttons["quit"]:
 				self.bye()
-
-	def update(self):
-		self.controls.update()
-		self.render.update()
 		
 	def bye(self):
 		print("bye!")

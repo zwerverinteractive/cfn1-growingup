@@ -1,0 +1,36 @@
+Smoowee
+
+Ultra-minimalistic dating sim. Try to smooch girl and grow up to become a man the process.
+
+1 girl likes "strong, cool boys"		(s6,c10,i4,r3,c4)	(be good at skateboarding/etc and stand up for yourself, kiss unlocked at skatepark)
+1 girl likes "smart boys"				(s3,c3,i10,r3,c6)	(do good at school, answer her questions, kiss unlocked at library)
+1 girl likes "romantic boys"			(s3,c3,i6,r10,c6)	(recite a poem, doesn't have to be great, give her flowers. kiss unlocked at lake)
+1 girl likes "creative boys"			(s3,c3,i6,r6,c10)	(sing her quality song, painting and poem, kiss unlocked at park)
+
+PLACES:
+	clothing store: 4 different outfits (scirc)
+	toystore: cool tools (skateboard, yoyo, etc)
+	art store: creativity tools	
+	office-supply store: intelligence tools
+	
+	gym: strength+1
+	skatepark: cool+1
+	library: intelligence+1
+	park: creativity+1
+	lake: romance+1
+	playground: all + 0.5
+	park: all + 0.5
+	
+	every activity costs 1/2 of a day (so you can do two in a day), you have 30 days to kiss a girl.
+	effectiveness activity depends on success minigame?
+	getting bullied penaltises stats
+	when a girl is in any of these places, showing off becomes an option.
+
+PEOPLE:
+	Dad			(You're becoming a real man, son)
+	Gramma	(When I was your age, we kissed till the sun came up)
+	Sister		(Stop pestering me)
+	
+	Random/funny peeps and other kids with quests for items/money.
+	
+You win the game when you kiss all the girls (or at least one)

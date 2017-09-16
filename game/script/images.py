@@ -4,10 +4,10 @@ import os
 def grabSpriteSheet(filename, s, **kwargs): #Originally written by Tom Eyerman, slightly altered.
 	base_image = pygame.image.load(filename).convert()
 	base_image.set_colorkey((0, 255, 0))
-	sprite_width = s
-	sprite_height = s
-	columns = base_image.get_width() / s
-	rows = base_image.get_height() / s
+	sprite_width = s[0]
+	sprite_height = s[1]
+	columns = base_image.get_width() / s[0]
+	rows = base_image.get_height() / s[1]
 	current_row, current_column = kwargs.get('start', (0, 0))
 	end_row, end_column = kwargs.get('end', (rows - 1, columns - 1))
 	image_list = []
@@ -26,10 +26,15 @@ def grabSpriteSheet(filename, s, **kwargs): #Originally written by Tom Eyerman, 
 class Images():
 	def __init__(self):
 		print("Loading images.")
-		return
 		self.images = {}
-		types = ["backgrounds"]
-		sizes = [12]
+		types = ["player"]
+		sizes  = [(16,32)]
 		for i, t in enumerate(types):
-			self.images[t] = grabSpriteSheet('content/images/' + t + ".png", sizes[i])
+			self.images[t] = grabSpriteSheet('data/image/sprites/' + t + ".png", sizes[i])
+			
+		self.rooms = {}
+		types = ["a1", "a2", "b1", "b2"]
+		sizes  = [(1280,128),(1280,128),(1280,128),(1280,128)]
+		for i, t in enumerate(types):
+			self.rooms[t] = grabSpriteSheet('data/image/rooms/' + t + ".png", sizes[i])
 
