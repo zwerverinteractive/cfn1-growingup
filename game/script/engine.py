@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+from random import randint
 from script.controls import Controls
 from script.sound import Sound
 from script.images import Images
 from script.room import Room
+from script.cars import Car
 from script.player import Player
 
 class Engine():
@@ -26,6 +28,8 @@ class Engine():
 		self.images = Images()
 		self.room = Room()
 		self.player = Player()
+		self.cars = []
+		
 		print("Loaded and ready to go!")
 		self.running = True
 		while self.running:
@@ -33,13 +37,29 @@ class Engine():
 			self.controls.update()
 			self.screen.fill((0,0,0)); self.gscreen.fill((0,0,0))
 			self.gscreen.blit(self.room.surf, (0,0))
+			
+					#spawn cars
+			c = engine.room.current_room
+			if c == "a1" or c == "a2" or c == "b1" or c == "b2":
+				if randint(0,4000) == 0:
+					self.cars.append(Car())
+			
+			
 			for obj in self.objects:
 				obj.update()
 				self.gscreen.blit(obj.surf, obj.rect)
+
+			for c,car in enumerate(self.cars):
+				car.update()
+				if car.alive == False:
+					del self.cars[c]
+				else:
+					self.gscreen.blit(car.surf, car.v2)
 			if self.player.rect[0] > 64-8:
 				self.screen.blit(self.gscreen, (-self.player.rect[0]+64-8,0))
 			else:
 				self.screen.blit(self.gscreen, (0,0))
+				
 			pygame.transform.scale(self.screen, self.wres, self.window)
 			pygame.display.flip()
 			if self.controls.buttons["quit"]:

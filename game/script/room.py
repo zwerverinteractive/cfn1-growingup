@@ -15,5 +15,6 @@ class Room():
 		self.surf.blit(engine.images.rooms[self.current_room][0], (0,0))
 		
 	def swap(self, r):
+		del engine.cars[:]
 		self.current_room = r
 		self.draw()	

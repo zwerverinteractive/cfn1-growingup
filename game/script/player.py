@@ -9,6 +9,14 @@ class Player():
 		self.surf.set_colorkey((0,255,0))
 		self.speed = 0.05
 		
+		self.stats = {
+			"strength" : 0,
+			"cool" : 0,			
+			"intelligence" : 0,
+			"romance" : 0,
+			"creativity" : 0,
+			}
+		
 		#ANIMATION PROPERTIES
 		self.current_animation = "w_left"
 		self.current_frame = 0
@@ -53,7 +61,6 @@ class Player():
 				if e[0] == "d": d = 1
 				else: d = 0
 				engine.gscreen.blit(engine.images.images["icons"][d], (self.rect[0]+5, self.rect[1]-10))
-				
 				if (b["down"] and d == 1) or (b["up"] and d == 0):
 					self.rect[0] = e[3]; self.real_rect[0] = e[3]
 					engine.room.swap(e[2])
