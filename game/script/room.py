@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+from script.hotspots import spots
+
 class Room():
 	def __init__(self):
-		self.overworld = True
-		self.current_room = "a1"
+		self.hotspots = spots
+		self.overworld = False
+		self.current_room = "home-up"
 		self.rect = (0,0,1280,128)
 		self.surf = pygame.Surface((1280,128))
 		self.draw()
@@ -11,21 +14,6 @@ class Room():
 		self.surf.fill((0,0,0))
 		self.surf.blit(engine.images.rooms[self.current_room][0], (0,0))
 		
-	def swap(self, d):
-		if self.current_room == "a1":
-			if d == "lu": self.current_room = "b1"
-			if d == "ru": self.current_room = "b2"
-			if d == "d": self.current_room = "a2"
-		elif self.current_room == "a2":
-			if d == "lu": self.current_room = "b2"
-			if d == "ru": self.current_room = "b1"
-			if d == "d": self.current_room = "a1"
-		elif self.current_room == "b1":
-			if d == "lu": self.current_room = "a2"
-			if d == "ru": self.current_room = "a1"
-			if d == "d": self.current_room = "b2"
-		elif self.current_room == "b2":
-			if d == "lu": self.current_room = "a1"
-			if d == "ru": self.current_room = "a2"
-			if d == "d": self.current_room = "b1"
+	def swap(self, r):
+		self.current_room = r
 		self.draw()	

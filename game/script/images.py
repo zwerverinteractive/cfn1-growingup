@@ -33,9 +33,9 @@ class Images():
 			self.images[t] = grabSpriteSheet('data/image/sprites/' + t + ".png", sizes[i])
 			
 		self.rooms = {}
-		types = ["a1", "a2", "b1", "b2"]
-		sizes  = [(1280,128),(1280,128),(1280,128),(1280,128)]
+		types = ["home-up", "home-down", "a1", "a2", "b1", "b2"]
+		sizes  = [(640,128), (640,128),(1280,128),(1280,128),(1280,128),(1280,128)]
 		for i, t in enumerate(types):
 			self.rooms[t] = grabSpriteSheet('data/image/rooms/' + t + ".png", sizes[i])
 
-		
+			
