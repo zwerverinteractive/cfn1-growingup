@@ -19,6 +19,5 @@ class Car():
 		
 	def update(self):
 		self.v2[0] += self.d
-		
 		if self.v2[0] > 1280 or self.v2[0] < -80:
 			self.alive = False

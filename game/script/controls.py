@@ -11,7 +11,8 @@ class Controls():
 			"B": 		pygame.K_x,
 			"start": 		pygame.K_RETURN,
 			"select": 	pygame.K_SPACE,
-			"quit":		pygame.K_ESCAPE
+			"quit":		pygame.K_ESCAPE,
+			"watch":	pygame.K_TAB,
 			}
 			
 		self.buttons = {}

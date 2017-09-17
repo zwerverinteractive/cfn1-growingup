@@ -8,6 +8,8 @@ from script.images import Images
 from script.room import Room
 from script.cars import Car
 from script.player import Player
+from script.text import Text
+from script.time import Time
 
 class Engine():
 	def load(self):
@@ -23,6 +25,8 @@ class Engine():
 		self.screen = pygame.Surface(self.sres)
 		self.gscreen = pygame.Surface((1280,128))
 		self.objects = []
+		self.time = Time()
+		self.text = Text()
 		self.controls = Controls()
 		self.sound = Sound()
 		self.images = Images()
@@ -37,29 +41,28 @@ class Engine():
 			self.controls.update()
 			self.screen.fill((0,0,0)); self.gscreen.fill((0,0,0))
 			self.gscreen.blit(self.room.surf, (0,0))
-			
-					#spawn cars
-			c = engine.room.current_room
-			if c == "a1" or c == "a2" or c == "b1" or c == "b2":
-				if randint(0,4000) == 0:
-					self.cars.append(Car())
-			
-			
+
 			for obj in self.objects:
 				obj.update()
 				self.gscreen.blit(obj.surf, obj.rect)
 
+			#spawn cars
+			c = engine.room.current_room
+			if c == "a1" or c == "a2" or c == "b1" or c == "b2":
+				if randint(0,5000) == 0:
+					self.cars.append(Car())
 			for c,car in enumerate(self.cars):
 				car.update()
 				if car.alive == False:
 					del self.cars[c]
 				else:
 					self.gscreen.blit(car.surf, car.v2)
+					
 			if self.player.rect[0] > 64-8:
 				self.screen.blit(self.gscreen, (-self.player.rect[0]+64-8,0))
 			else:
 				self.screen.blit(self.gscreen, (0,0))
-				
+			self.time.update()
 			pygame.transform.scale(self.screen, self.wres, self.window)
 			pygame.display.flip()
 			if self.controls.buttons["quit"]:
