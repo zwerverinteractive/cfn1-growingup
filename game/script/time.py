@@ -8,14 +8,14 @@ class Time():
 		self.minute = 0
 		
 		self.mili = 0
-		self.tick = 1000
+		self.tick = 500
 			
 	def update(self):
 		self.mili += 1
 		if self.mili > self.tick:
 			self.mili = 0		
 			self.minute += 1
-			if self.minute > 60:
+			if self.minute >= 60:
 				self.minute = 0
 				self.hour += 1
 				if self.hour >= 24:

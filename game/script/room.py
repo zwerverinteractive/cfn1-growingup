@@ -16,5 +16,8 @@ class Room():
 		
 	def swap(self, r):
 		del engine.cars[:]
+		if r == "home-down":
+			engine.player.dad = True
+		
 		self.current_room = r
 		self.draw()	
