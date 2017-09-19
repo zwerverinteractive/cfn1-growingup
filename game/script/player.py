@@ -136,14 +136,22 @@ class Player():
 			"hey there sleepypants, you finally woke up? there's not a lot to do here on sunday, so why not explore the town a bit?",
 			"Good luck on your first day at school!",
 			"Look who we have here. Sleep well? Ready for school?",
-			"Hey, son."
+			"Hey, son.",
+			"Good morning!",
+			"Friday, it's almost weekend!",
+			"Good morning, son. It's saturday. That means you get your allowance. Don't go spend it all in one place.",
+			"Mornin' sleepyface! Another sunday, know what you're going to do today yet?'"
+			
 		]
 		
 		d2 = [
 			"Oh, and please remember, don't leave town and be home before 20:00. Keep an eye on your watch by holding TAB. proud of you, son.",
 			"Oh, and I heard the local newspaper is looking for paperboys. could be a way to make some extra money. love you, son",
-			"And, hey! love you, son."
-			"Proud."
+			"And, hey! love you, son.",
+			"Proud.",
+			"Oh, and don't forget, I'm proud of you, son.",
+			"Oh, and don't forget, I'm proud of you, son",
+			"You could go to church if you want. I'm not religious but you are free to develop your own beliefs."
 			]
 				
 		if engine.room.current_room == "home-down":
