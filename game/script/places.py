@@ -8,7 +8,7 @@ class Places:
 	def enter(self, location):
 		player = engine.player
 		if location == "office supply":
-			c = engine.text.ch(["Buy a pen. 5$", "Buy a piece of paper. 1$"])
+			c = engine.text.ch(["Buy a pen. 5$", "Buy a piece of paper. 1$", "leave"])
 			if c == 0:
 				if player.inventory["pen"] == False:
 					if player.money > 5:
@@ -25,8 +25,11 @@ class Places:
 						engine.text.mw("At last! You have a piece of paper!")
 					else: engine.text.mw("You don't even have a single lousy buck.")
 				else: engine.text.mw("You can only carry one piece of paper. (Because game-logic.)")
+			if c == 2:
+				engine.text.mw("You leave the office supply store.")
+				
 		elif location == "clothing store":
-			c = engine.text.ch(["Buy tuxedo. 150$", "Buy dress 200$", "Buy sunglasses. 25$"])
+			c = engine.text.ch(["Buy tuxedo. 150$", "Buy dress 200$", "Buy sunglasses. 25$", "leave"])
 			if c == 0:
 				if player.inventory["tuxedo"] == False:
 					if player.money > 150:
@@ -53,9 +56,11 @@ class Places:
 						engine.text.mw("Nonchalantly you throw the money on the counter and put on the sunglasses. Bad to the bone, you think to yourself.")
 					else: engine.text.mw("Though these sunglasses would look really cool, but you simple can't afford them.")
 				else: engine.text.mw("You already own a pair of sunglasses.")
+			if c == 3:
+				engine.text.mw("You leave the clothing store.")
 
 		elif location == "toy store":
-			c = engine.text.ch(["Buy skateboard. 100$", "Buy basketball 50$", "Buy trading-cards. 10$"])
+			c = engine.text.ch(["Buy skateboard. 100$", "Buy basketball 50$", "Buy trading-cards. 10$", "leave"])
 			if c == 0:
 				if player.inventory["skateboard"] == False:
 					if player.money > 100:
@@ -90,9 +95,11 @@ class Places:
 				else:
 					if player.inventory["tradingcards"] > 0: engine.text.mw("Must... Have... Gobamen... The clerk shakes his head as you show him the insides of your pockets.")
 					else: engine.text.mw("Though you feel a certain itch looking at the trading-cards, you just can't afford them right now.")
+			if c == 3:
+				engine.text.mw("You leave the office supply store.")
 
 		elif location == "art store":
-			c = engine.text.ch(["Buy paint. 50$", "Buy brush. 5$", "Buy canvas. 10$"])
+			c = engine.text.ch(["Buy paint. 50$", "Buy brush. 5$", "Buy canvas. 10$", "leave"])
 			if c == 0:
 				if player.inventory["paint"] == False:
 					if player.money > 50:
@@ -118,9 +125,10 @@ class Places:
 						engine.text.mw("You close one eye, staring at the canvas with the other, imagining what to put on it, then pay for it.")
 					else: engine.text.mw("You do not have enough money to buy the canvas, your vision will have to wait.")
 				else: engine.text.mw("You should finish your painting before buying a new canvas.")
-					
+			if c == 3:
+				engine.text.mw("You leave the art store.")
 		elif location == "gym":
-			c = engine.text.ch(["get subscription 25$", "work out"])
+			c = engine.text.ch(["get subscription 25$", "work out", "leave"])
 			if c == 0:
 				if player.inventory["gym-sub"] == False:
 					player.inventory["gym-sub"] = True
@@ -142,6 +150,9 @@ class Places:
 						else:
 							engine.text.mw("You waste a couple of hours not finding it in you to really push yourself.")
 							engine.text.mw("Gym trainer: To bad, pal! But don't feel bad, you'll do better next time.")
+			elif c == 2:
+				engine.text.mw("You leave the gym.")
+							
 		elif location == "skatepark":
 			if player.inventory["skateboard"] == True:
 				r = randint(0,12)

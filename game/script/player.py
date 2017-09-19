@@ -166,10 +166,13 @@ class Player():
 							engine.text.mw("You eat the cold food and head up to bed.")
 							self.endDay()
 						elif engine.time.hour > 21:
-							engine.text.mw("Dad: You're home late, son.")
+							engine.text.mw("Dad: You're home late, son, watch some television while I prepare dinner.")
+							engine.text.mw("You watch some tv, eat dinner with dad, do your homework before falling sound asleep...")
+							self.endDay()
+							
 						else:
 							engine.text.mw("Dad: Hey, welcome back. If you're done outside, watch some television while I prepare dinner.")
-							self.dad = False
+							self.dad = Falses
 				else:
 					if engine.time.current_day != "sunday" or "saturday":
 						if engine.time.hour > 11:
