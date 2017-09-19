@@ -22,11 +22,11 @@ class Player():
 		self.dad = True; self.firstdad = True
 		self.z = True
 		self.stats = {
-			"strength" : 4,
-			"cool" : 7,			
-			"intelligence" : 2,
-			"romance" : 9,
-			"creativity" : 50,
+			"strength" : 0,
+			"cool" : 0,			
+			"intelligence" : 0,
+			"romance" : 0,
+			"creativity" : 0,
 			}
 		self.inventory = {}
 		inv = ["pen", "paper", "tuxedo", "dress", "sunglasses", "skateboard", "basketball", "paint", "brush", "canvas", "gym-sub", "library-sub"]
@@ -201,6 +201,7 @@ class Player():
 		engine.time.minute = 0
 		self.dad = True
 		self.firstdad = True
+		self.delivered = False
 		self.papers = False
 		del self.deliver[:]
 		self.deliver = []
