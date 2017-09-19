@@ -2,7 +2,7 @@
 class Time():
 	def __init__(self):
 		self.days = ["sunday","monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
-		self.day = 2
+		self.day = 1
 		self.hour = 8
 		self.minute = 0
 		self.current_day = self.days[(self.day-1)%7]
