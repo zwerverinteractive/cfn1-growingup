@@ -12,22 +12,22 @@ girl["Zoe"] = {
 		},
 	"schedule_days" : (
 		#time, 	room, 	x
-		(8,		"b2", 	800, "school"),
-		(15,	"a1",	432, "toystore"),
+		(7,		"b2", 	800, "school"),
+		(12,	"a1",	432, "toystore"),
 		(17,	"a1",	936, "skatepark"),
 		(19,	"b1",	893, "home"),
 		),
 	"schedule_weekends" : (
 		#time, 	room, 	x
-		(11,	"b1", 	512, "gym"),
-		(15,	"b1",	100, "toystore"),
-		(17,	"a1",	100, "skatepark"),
+		(11,	"b1", 	512, "playground"),
+		(15,	"b1",	100, "skatepark"),
 		(19,	"b1",	200, "home"),
 		),
 	"dialog_unknown" : (
 		"hello. my name is zoe.",
 		"oh... euh... hello...",
-		"what do you want from me?",
+		"what do you want?",
+		"can I help you?",
 		),
 	"dialog_school" : (
 		"school is stupid.",
@@ -63,7 +63,7 @@ class Girl():
 		self.surf.fill((0,255,0))
 		self.surf.blit(engine.images.images[self.name][0], (0,0))
 		
-		self.speed = 0.035
+		self.speed = 1
 		self.love = 0
 		self.know = 0
 		self.properties = p
@@ -85,32 +85,31 @@ class Girl():
 		for s in self.properties[sched]:
 			if engine.time.hour == s[0]: self.destination = s
 				
+				
 		if self.destination != None:
-			if self.current_room != self.destination[1]:
-				if self.real_rect[0] < 585: self.move("right")
-				elif self.real_rect[0] > 700: self.move("left")
-				else: self.current_room = self.destination[1]
-			else:
-				if self.real_rect[0] < self.destination[2]-2: self.move("right")
-				elif self.real_rect[0] > self.destination[2]+2: self.move("left")
-				else: self.current_frame = 0; self.draw()
+			self.frame_clock += 1
+			if self.frame_clock > self.frame_speed:
+				if self.current_room != self.destination[1]:
+					if self.real_rect[0] < 585: self.move("right")
+					elif self.real_rect[0] > 700: self.move("left")
+					else: self.current_room = self.destination[1]
+				else:
+					if self.real_rect[0] < self.destination[2]-2: self.move("right")
+					elif self.real_rect[0] > self.destination[2]+2: self.move("left")
+					else: self.current_frame = 0; self.destination = None; self.draw()
+				self.frame_clock = 0
 				
 			self.rect[0] = round(self.real_rect[0])
-				
+		else:
+			if engine.player.rect[0] < self.rect[0]: self.current_animation = "w_left"; self.draw()
+			elif engine.player.rect[0] > self.rect[0]: self.current_animation = "w_right"; self.draw()
+					
 	def move(self, d):
-		self.frame_clock += 1
-		if self.frame_clock > self.frame_speed:
-			self.frame_clock = 0
-			self.current_frame += 1
-			if self.current_frame >= len(self.animations[self.current_animation])-1:
-				self.current_frame = 0
-			if d == "left":
-				self.real_rect[0] -= self.speed
-				self.current_animation = "w_left"
-			else:
-				self.real_rect[0] += self.speed
-				self.current_animation = "w_right"
-			self.draw()
+		self.current_frame += 1
+		if self.current_frame >= len(self.animations[self.current_animation])-1: self.current_frame = 0
+		if d == "left": self.real_rect[0] -= self.speed; self.current_animation = "w_left"
+		else: self.real_rect[0] += self.speed; self.current_animation = "w_right"
+		self.draw()
 	
 	def draw(self):
 		self.surf.fill((0,255,0))
@@ -118,6 +117,9 @@ class Girl():
 		self.surf.blit(engine.images.images[self.name][cf], (0,0))			
 		
 	def talk(self):
+		if self.destination != None:
+			engine.text.mw(self.name + ": I'm going to the "+ self.destination[3])	
+		
 		engine.text.mw(self.name + ": "+ choice(self.properties["dialog_unknown"]))
 		
 class Girls():

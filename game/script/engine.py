@@ -6,6 +6,7 @@ from script.controls import Controls
 from script.sound import Sound
 from script.images import Images
 from script.room import Room
+from script.places import Places
 from script.cars import Car
 from script.player import Player
 from script.girls import Girls
@@ -32,6 +33,7 @@ class Engine():
 		self.sound = Sound()
 		self.images = Images()
 		self.room = Room()
+		self.places = Places()
 		self.girls = Girls()
 		self.player = Player()
 		self.cars = []
@@ -41,16 +43,14 @@ class Engine():
 		while self.running:
 			self.clock.tick()
 			self.controls.update()
-
-			self.girls.update()
-
-			#spawn cars
+			self.gscreen.blit(self.room.surf, (0,0))
+			
+			#REALLY MESSY CAR CODE BELOW!
 			c = engine.room.current_room
 			if c == "a1" or c == "a2" or c == "b1" or c == "b2":
 				if randint(0,5000) == 0:
 					self.cars.append(Car())
 			
-			self.gscreen.blit(self.room.surf, (0,0))
 			for c,car in enumerate(self.cars):
 				car.update()
 				if car.alive == False:
@@ -61,6 +61,10 @@ class Engine():
 			self.girls.update()
 			self.player.update()
 			self.gscreen.blit(self.player.surf, self.player.rect)
+			
+			if self.player.z:
+				self.player.z = False
+				self.text.mw("Day " + str(self.time.day) + ". " + str(self.time.current_day))
 			
 			if self.player.rect[0] > 64-8:
 				self.screen.blit(self.gscreen, (-self.player.rect[0]+64-8,0))

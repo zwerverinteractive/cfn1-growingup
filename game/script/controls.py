@@ -7,12 +7,11 @@ class Controls():
 			"down" :	pygame.K_DOWN,
 			"left" : 		pygame.K_LEFT,
 			"right" : 	pygame.K_RIGHT,
-			"A": 		pygame.K_z,
-			"B": 		pygame.K_x,
-			"start": 		pygame.K_RETURN,
-			"select": 	pygame.K_SPACE,
-			"quit":		pygame.K_ESCAPE,
+			"skate": 	pygame.K_LSHIFT,
+			"trick": 		pygame.K_SPACE,
 			"watch":	pygame.K_TAB,
+			"start": 		pygame.K_RETURN,
+			"quit":		pygame.K_ESCAPE,
 			}
 			
 		self.buttons = {}
@@ -30,4 +29,4 @@ class Controls():
 			if e.type == pygame.KEYUP:
 				for b in self.buttons:
 					if e.key == self.cfg[b]:
-						self.buttons[b] = False		
+						self.buttons[b] = False
