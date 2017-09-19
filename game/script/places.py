@@ -407,7 +407,7 @@ class Places:
 				engine.text.mw("Preacher: " + choice(preach))
 				engine.text.mw("People pray and go away leaving you with nothing to say. Creativity slightly increased.")
 				player.church += 1
-				player.stats.creativity += 1
+				player.stats["creativity"] += 1
 			if engine.time.hour > 9:
 				engine.text.mw("The sermon has already started. Best not to disturb it.")
 		elif location == "paper":
