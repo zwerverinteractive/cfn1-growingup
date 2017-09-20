@@ -28,7 +28,7 @@ class Images():
 		print("Loading images.")
 		self.images = {}
 		types = ["watch", "icons", "player","Zoe", "bar", "cars"]
-		sizes  = [(128,128),(8,8),(16,32), (16,32), (51,7), (80,32)]
+		sizes  = [(128,128),(13,13),(16,32), (16,32), (51,7), (80,32)]
 		for i, t in enumerate(types):
 			self.images[t] = grabSpriteSheet('data/image/sprites/' + t + ".png", sizes[i])
 			

@@ -27,6 +27,7 @@ class Text():
 		self.current_line = 0
 		self.current_word = 0
 		self.current_letter = 0	
+		self.f = True
 		while self.active:
 			engine.controls.update()
 			if self.current_word < len(self.words):
@@ -52,15 +53,25 @@ class Text():
 					self.surf.fill((255,255,255), (1,1,62,108))
 					self.surf.fill((0,0,0), (2,2,60,106))		
 					for l, line in enumerate(self.processed_lines):
-						self.surf.blit(engine.text.m(line), (3,3+(l*8)))
-			self.surf.blit(engine.images.images["icons"][1], (53,99))
+						self.surf.blit(engine.text.m(line), (4,4+(l*8)))
+
+				if engine.controls.buttons["down"]:
+					engine.controls.buttons["down"] = False
+					self.time_tick = 0
+			else:
+				if engine.controls.buttons["down"]:
+					engine.controls.buttons["down"] = False
+					self.active = False
+					break
+
+
+			self.surf.blit(engine.images.images["icons"][1], (50,95))
 			engine.screen.blit(self.surf, (10,10))
 			engine.flip()
 			
-			if engine.controls.buttons["down"]:
-				engine.controls.buttons["down"] = False
-				self.active = False
-				break
+			
+				
+				
 		
 	def ch(self,choices):
 		self.surf = pygame.Surface((110, 64))
@@ -89,9 +100,9 @@ class Text():
 			self.surf.fill((0,0,0), (2,2,106,60))	
 			for i,c in enumerate(choices):
 				if i == self.sel:
-					self.surf.blit(self.s(c + " ->"), (4, 4+(8*i)))
+					self.surf.blit(self.s(" "+ c + " ->"), (4, 4+(8*i)))
 				else:
-					self.surf.blit(self.m(c), (4, 4+(8*i)))
+					self.surf.blit(self.m(" " + c), (4, 4+(8*i)))
 			engine.screen.blit(self.surf, (10,10))
 			engine.flip()
 			

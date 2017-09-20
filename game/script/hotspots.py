@@ -80,7 +80,7 @@ spots["b2"] = {
 		],
 	"places": [
 		["u",(406, 433), 	"pool", 		((10,00),(15,00)), 	["saturday"]],
-		["u",(755,780), 		"school", 	((8,30),(15,00)),	["monday", "tuesday", "wednesday", "thursday", "friday"]],
+		["u",(755,780), 		"school", 	((8,30),(14,00)),	["monday", "tuesday", "wednesday", "thursday", "friday"]],
 		["u",(904, 929), 	"church", 	((9,00),(11,00)),	["sunday"]],
 		["u",(1020,1042),	"paper", 	((6,00),(15,00)),	["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]],
 		]

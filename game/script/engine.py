@@ -11,6 +11,7 @@ from script.cars import Car
 from script.player import Player
 from script.girls import Girls
 from script.text import Text
+from script.dialog import Dialog
 from script.time import Time
 
 class Engine():
@@ -19,10 +20,10 @@ class Engine():
 		os.environ["SDL_VIDEO_CENTERED"] = "1"
 		pygame.init()
 		pygame.display.set_caption("v0.0.1")
-		pygame.mouse.set_visible(False)
-		pygame.event.set_grab(True)
+		#pygame.mouse.set_visible(False)
+		#pygame.event.set_grab(True)
 		self.clock = pygame.time.Clock()
-		self.wres = (800, 600); self.sres = (128, 128); flags = pygame.FULLSCREEN | pygame.DOUBLEBUF
+		self.wres = (800, 600); self.sres = (128, 128); flags = 0#pygame.FULLSCREEN | pygame.DOUBLEBUF
 		self.window = pygame.display.set_mode(self.wres, flags)
 		self.screen = pygame.Surface(self.sres)
 		self.gscreen = pygame.Surface((1280,128))
@@ -36,6 +37,7 @@ class Engine():
 		self.places = Places()
 		self.girls = Girls()
 		self.player = Player()
+		self.dialog = Dialog()
 		self.cars = []
 		
 		print("Loaded and ready to go!")
@@ -71,16 +73,17 @@ class Engine():
 			else:
 				self.screen.blit(self.gscreen, (0,0))
 			
+			self.time.update()
 			self.flip()
 			if self.controls.buttons["quit"]:
 				self.bye()
 
 	def flip(self):
-		self.time.update()
 		pygame.transform.scale(self.screen, self.wres, self.window)
 		pygame.display.flip()
 		
 	def bye(self):
 		print("bye!")
+		self.running = False
 		pygame.quit()
 		sys.exit()

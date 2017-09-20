@@ -14,11 +14,12 @@ class Player():
 		self.job = False
 		self.delivered = False
 		self.papers = False
+		self.school = False
 		self.deliver = []
 		self.salary = 0
 		self.painting = 0
 		self.church = 0
-		self.speed = 0.05
+		self.speed = 0.1
 		self.dad = True; self.firstdad = True
 		self.z = True
 		self.stats = {
@@ -78,7 +79,7 @@ class Player():
 			else: houses = []
 			for h in houses:
 				if self.rect[0]+6 > h[1][0] and self.rect[0]+6 < h[1][1]:
-					engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+5, self.rect[1]-10))
+					engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+3, self.rect[1]-14))
 					if b["up"]:
 						if not h[2] in self.deliver:
 							self.deliver.append(h[2])
@@ -95,8 +96,8 @@ class Player():
 			self.deliver = []
 			self.delivered = True
 			self.papers = False
-			engine.text.mw("You hear the voice of the newspaper chief in the back of your head.")
-			engine.text.mw("chief: That's the last of 'em! Good job, kid!")
+			engine.text.mw("You hear the spirit-voice of the newspaper chief in the back of your head.")
+			engine.text.mw("chief: That's the last of 'em! Good job, kid! Come back to the office to recieve your salary.")
 
 		if "exits" in engine.room.hotspots[cr]: exits = engine.room.hotspots[cr]["exits"]
 		else: exits = []
@@ -104,7 +105,7 @@ class Player():
 			if self.rect[0]+6 > e[1][0] and self.rect[0]+6 < e[1][1]:
 				if e[0] == "d": d = 1
 				else: d = 0
-				engine.gscreen.blit(engine.images.images["icons"][d], (self.rect[0]+5, self.rect[1]-10))
+				engine.gscreen.blit(engine.images.images["icons"][d], (self.rect[0]+3, self.rect[1]-14))
 				if (b["down"] and d == 1) or (b["up"] and d == 0):
 					self.rect[0] = e[3]; self.real_rect[0] = e[3]
 					engine.room.swap(e[2])
@@ -116,9 +117,11 @@ class Player():
 			if self.rect[0]+6 > p[1][0] and self.rect[0]+6 < p[1][1]:
 				if p[0] == "d": d = 1
 				else: d = 0
-				engine.gscreen.blit(engine.images.images["icons"][d], (self.rect[0]+5, self.rect[1]-10))			
+				engine.gscreen.blit(engine.images.images["icons"][d], (self.rect[0]+3, self.rect[1]-14))			
 				if (b["down"] and d == 1) or (b["up"] and d == 0):
 					if (p[3] != None):
+						if p[3] == "home-down": self.dad = True
+						
 						if (time.hour >= p[3][0][0] and time.hour <= p[3][1][0]) and (time.current_day in p[4]):
 							engine.places.enter(p[2])
 						else: engine.text.mw("Its not open. A sign says open on " + str(p[4]) + " from " + str(p[3][0][0]) + " till " + str(p[3][1][0]) + ".")
@@ -128,40 +131,39 @@ class Player():
 		for g in girls:
 			if girls[g].current_room == engine.room.current_room:
 				if self.rect[0]+12 > girls[g].rect[0] and self.rect[0] < girls[g].rect[0]+12:
-					engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+5, self.rect[1]-10))
+					engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+3, self.rect[1]-14))
 					if b["up"]: girls[g].talk(); b["up"] = False
 				
 				
 		d1 = [
 			"hey there sleepypants, you finally woke up? there's not a lot to do here on sunday, so why not explore the town a bit?",
-			"Good luck on your first day at school!",
+			"Good luck on your first day at school this week!",
 			"Look who we have here. Sleep well? Ready for school?",
-			"Hey, son.",
-			"Good morning!",
-			"Friday, it's almost weekend!",
-			"Good morning, son. It's saturday. That means you get your allowance. Don't go spend it all in one place.",
-			"Mornin' sleepyface! Another sunday, know what you're going to do today yet?'"
-			
+			"Hey, son. Aren't you still a little young to be drinking coffee?'"
+			"Mornin'. Thursday is a magic day!",
+			"Mornin'.'Friday, almost weekend!",
+			"Morning. Its finally weekend. Here, you can have your allowance."
 		]
 		
 		d2 = [
 			"Oh, and please remember, don't leave town and be home before 20:00. Keep an eye on your watch by holding TAB. proud of you, son.",
 			"Oh, and I heard the local newspaper is looking for paperboys. could be a way to make some extra money. love you, son",
 			"And, hey! love you, son.",
-			"Proud.",
-			"Oh, and don't forget, I'm proud of you, son.",
-			"Oh, and don't forget, I'm proud of you, son",
-			"You could go to church if you want. I'm not religious but you are free to develop your own beliefs."
+			"I'm proud.",
+			"And don't forget, I'm really proud of you, son.",
+			"Oh, and do you want to do some board games with me tonight?'"
+			"Don't go spend it all in one place now."
 			]
 				
 		if engine.room.current_room == "home-down":
 			if self.dad:
 				if self.firstdad:
+
 					if self.rect[0] > 84 and self.rect[0] < 88:
-						engine.text.mw("Dad: " + d1[engine.time.day-1])
+						engine.text.mw("Dad: " + d1[engine.time.day-1%7])
 						self.rect[0] -= 5;self.real_rect[0] -= 5;
 					elif self.rect[0] > 75 and self.rect[0] < 80:
-						engine.text.mw("Dad: " + d2[engine.time.day-1])
+						engine.text.mw("Dad: " + d2[engine.time.day-1%7])
 						self.firstdad = False
 				elif engine.time.hour >= 18:
 					if self.rect[0] > 84 and self.rect[0] < 88:
@@ -180,27 +182,30 @@ class Player():
 							
 						else:
 							engine.text.mw("Dad: Hey, welcome back. If you're done outside, watch some television while I prepare dinner.")
-							self.dad = Falses
+							self.dad = False
 				else:
-					if engine.time.current_day != "sunday" or "saturday":
-						if engine.time.hour > 11:
-							engine.text.mw("Dad: Are you sick? What are you doing home now?")
-							engine.text.mw("Dad places his hand on your forehead feeling your temperature.")
-							engine.text.mw("Dad: sounding slightly emotional: You're fine! What the hell is this? You're dissapointing me, son.")
-							engine.text.mw("Dad: Your grounded for the rest of the day. Go upstairs and think about what you've done.")
-							engine.text.mw("You spend the rest of the day alone in your room.")
-							self.endDay()
-						elif engine.time.hour > 9:
-							engine.text.mw("Dad: What the hell are you doing here? Get your ass to school, pronto!")
-					else:
-						engine.text.mw("Hey kid. Shouldn't you be outside? Having adventures and stuff?")
+					if self.rect[0] > 84 and self.rect[0] < 88:
+						if engine.time.current_day != "sunday" and engine.time.current_day != "saturday" and self.school == False:
+							if engine.time.hour > 11:
+								engine.text.mw("Dad: Are you sick? What are you doing home now? Why aren't you at school?")
+								engine.text.mw("Dad places his hand on your forehead feeling your temperature.")
+								engine.text.mw("Dad: sounding slightly emotional: You're fine! What the hell is this? You're dissapointing me, son.")
+								engine.text.mw("Dad: Your grounded for the rest of the day. Go upstairs and think about what you've done.")
+								engine.text.mw("You spend the rest of the day alone in your room.")
+								self.endDay()
+							elif engine.time.hour > 9:
+								engine.text.mw("Dad: What the hell are you doing here? Get your ass to school, pronto!")
+						else:
+							if engine.time.hour < 18 and not self.firstdad:
+								engine.text.mw("Dad: Son! Shouldn't you be outside having adventures and stuff?")
+								self.dad = False
 						
-			if engine.time.hour > 18:
+			if engine.time.hour >= 18:
 				if self.rect[0] > 132 and self.rect[0] < 162:
-					engine.gscreen.blit(engine.images.images["icons"][1], (self.rect[0]+5, self.rect[1]-10))
+					engine.gscreen.blit(engine.images.images["icons"][1], (self.rect[0]+3, self.rect[1]-14))
 					if b["down"]:
 						b["down"] = False
-						engine.text.mw("You watch some tv, eat dinner with dad, do your homework before falling sound asleep...")
+						engine.text.mw("You watch some tv, eat dinner with dad and do your homework before falling sound asleep...")
 						self.endDay()
 						
 	def endDay(self):
@@ -211,9 +216,12 @@ class Player():
 		engine.time.hour = 7
 		engine.time.minute = 0
 		self.dad = True
+		self.school = False
 		self.firstdad = True
 		self.delivered = False
 		self.papers = False
 		del self.deliver[:]
 		self.deliver = []
 		self.z = True
+		for girl in engine.girls.girls:
+			engine.girls.girls[girl].sched = 0

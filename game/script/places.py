@@ -96,7 +96,7 @@ class Places:
 					if player.inventory["tradingcards"] > 0: engine.text.mw("Must... Have... Gobamen... The clerk shakes his head as you show him the insides of your pockets.")
 					else: engine.text.mw("Though you feel a certain itch looking at the trading-cards, you just can't afford them right now.")
 			if c == 3:
-				engine.text.mw("You leave the office supply store.")
+				engine.text.mw("You leave the toysbme.")
 
 		elif location == "art store":
 			c = engine.text.ch(["Buy paint. 50$", "Buy brush. 5$", "Buy canvas. 10$", "leave"])
@@ -175,6 +175,8 @@ class Places:
 			else:
 				engine.text.mw("You don't own a skateboard, so you have no choice but to hang around for a couple of hours.")
 				engine.text.mw("Skaterpunk: Eh, there's really no reason to be here without wheels, dude.")
+				engine.text.mw("Cool ever slightly increased")
+				player.stats["cool"] += 1
 				engine.time.hour += 2
 		elif location == "library":
 			c = engine.text.ch(["get library card 5$", "read books"])
@@ -265,7 +267,7 @@ class Places:
 					engine.text.mw("Dad would get worried if you stayed here.")
 				else:
 					engine.time.hour += 2
-					if player.stats["strength"] >= 50:
+					if player.stats["strength"] >= 25:
 						engine.text.mw("You win a game of  basketball! Strength and cool increased.")
 						engine.text.mw("Basketball player: *pant* *pant* Wowee, that's some fine bouncin'! Didn't stand a chance!'")
 						player.stats["strength"] += 2
@@ -373,6 +375,7 @@ class Places:
 			engine.text.mw("Teacher: Ok, see you next time.")
 			engine.text.mw("Teacher: And don't forget now. " + choice(trivia))
 			engine.time.hour = t
+			engine.player.school = True
 			engine.time.minute = 0
 		
 		elif location == "church":
@@ -413,13 +416,14 @@ class Places:
 				]
 			
 			if engine.time.hour == 9:
-				engine.time.hour += 2
+				engine.time.hour = 10
+				engine.time.minute = 45
 				engine.text.mw("You enter the building and after a handshake and some coffee the sermon begins.")
 				engine.text.mw("Preacher: " + choice(preach))
 				engine.text.mw("People pray and go away leaving you with nothing to say. Creativity slightly increased.")
 				player.church += 1
 				player.stats["creativity"] += 1
-			if engine.time.hour > 9:
+			elif engine.time.hour > 9:
 				engine.text.mw("The sermon has already started. Best not to disturb it.")
 		elif location == "paper":
 			engine.text.mw("You enter the newspaper office. People are franticly running around for no apparant reason.")
@@ -451,9 +455,11 @@ class Places:
 						else:
 							engine.text.mw("chief: You already have todays papers. Go deliver them, silly!")
 				elif ch == 1:
-					if player.delivered:
+					if player.salary > 0:
 						engine.text.mw("chief: here's the money we owe you. have fun with it.")
 						player.money += player.salary
 						player.salary = 0
+					else:
+						engine.text.mw("chief: you haven't made any money yet!'")
 				else:
 					engine.text.mw("chief: bye, now!")

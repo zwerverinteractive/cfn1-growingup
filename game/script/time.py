@@ -7,13 +7,13 @@ class Time():
 		self.minute = 0
 		self.current_day = self.days[(self.day-1)%7]
 		self.mili = 0
-		self.tick = 1000
+		self.tick = 500
 			
 	def update(self):
 		self.current_day = self.days[(self.day-1)%7]
 		self.mili += 1
 		if self.mili > self.tick:
-			self.mili = 0		
+			self.mili = 0
 			self.minute += 1
 			if self.minute >= 60:
 				self.minute = 0
