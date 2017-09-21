@@ -617,13 +617,13 @@ class Dialog:
 					else:
 						t.mw(name+": Take your time, I understand this is a big decision.")
 	
-	if engine.player.kisses > 4:
-		t.mw("You head home with a thumping heart, knowing you just kissed every girl in town.")
-		t.mw("As you close the door behind you your dad looks at you with a smirk on his face.")
-		t.mw("Dad: You didn't think I'd find out huh? You're the talk of the town, son!")
-		t.mw("Dad: I'm so proud of you. Just like the old man, huh?")
-		t.mw("And so you go through life single, yet never lonely.")
-		t.mw("And you grow up to be a techno dj and cocaine addict, dying age 38 of multiple STD's and heart failure.")
-		t.mw("Your funeral was packed.")
-		t.mw("Playboy ending unlocked, have a nice day!")
-		engine.bye()
+		if engine.player.kisses > 4:
+			t.mw("You head home with a thumping heart, knowing you just kissed every girl in town.")
+			t.mw("As you close the door behind you your dad looks at you with a smirk on his face.")
+			t.mw("Dad: You didn't think I'd find out huh? You're the talk of the town, son!")
+			t.mw("Dad: I'm so proud of you. Just like the old man, huh?")
+			t.mw("And so you go through life single, yet never lonely.")
+			t.mw("And you grow up to be a techno dj and cocaine addict, dying age 38 of multiple STD's and heart failure.")
+			t.mw("Your funeral was packed.")
+			t.mw("Playboy ending unlocked, have a nice day!")
+			engine.bye()
