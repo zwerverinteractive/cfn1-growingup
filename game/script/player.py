@@ -18,8 +18,9 @@ class Player():
 		self.deliver = []
 		self.salary = 0
 		self.painting = 0
+		self.paintings = 0
 		self.church = 0
-		self.speed = 0.1
+		self.speed = 0.05
 		self.dad = True; self.firstdad = True
 		self.z = True
 		self.stats = {
@@ -224,4 +225,7 @@ class Player():
 		self.deliver = []
 		self.z = True
 		for girl in engine.girls.girls:
-			engine.girls.girls[girl].sched = 0
+			g = engine.girls.girls[girl]
+			g.sched = 0
+			g.current_room = g.properties["home"][1]
+			g.rect[0] = g.real_rect[0] = g.properties["home"][2]

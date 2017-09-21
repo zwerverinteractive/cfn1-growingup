@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from random import choice
+
 class Text():
 	def __init__(self):
 		self.font = pygame.font.Font("data/font/zwerveresque.ttf", 8)
@@ -107,5 +109,15 @@ class Text():
 			engine.flip()
 			
 	def poem(self):
-		self.mw("This is a poem, a poem so great. I hope you'll die motherfucker.'")
+		pw = [
+			"Love.", "Hate.", "Regret.", "The moon.", "The stars.", "The sun." "If only", "Back to the start.",
+			"Forever.", "Touch.", "The cold.", "Close by you.", "Longing.", "Starts at the beginning.",
+			"However.", "What does it all mean?", "Why am I not brave?", "Lost in translation.",
+			"Fall down on their knees.", "Now you understand.", "I stood there and I cried.",
+			"My senses,", "leave me deaf and blind.", "Ten thousand saw it happen.", "Does it come as a surprise",
+			"Life is fine.", "I think about you.", "Roses are red.", "Meaning."		
+			]
+		poem = ""
+		for i in range(7):
+			poem += choice(pw)
 		return poem

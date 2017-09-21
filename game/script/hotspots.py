@@ -32,7 +32,7 @@ spots["a1"] = {
 		["u",(514,527), 		"art store", 		((8,30),(18,00)),	["monday", "tuesday", "wednesday", "thursday", "friday"]],
 		["u",(795,809), 		"gym", 			((8,30),(20,00)),	["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]],
 		["u",(826,960), 		"skatepark", 		None,				["sunday","monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]],		
-		["u",(1074,1097), 	"library", 			((13,00),(17,00)),	["monday","thursday"]],
+		["u",(1074,1097), 	"library", 			((13,00),(17,00)),	["monday", "tuesday", "wednesday", "thursday", "friday"]],
 		]
 	}
 
@@ -48,8 +48,8 @@ spots["a2"] = {
 		["u",(1092,1118), 	"lake", 			None,	["sunday","monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]],
 		],
 	"houses": [
-		["u", (103,118), "Jefferson"],
-		["u", (762,775), "Cream"],		
+		["u", (103,118), "Tanya"],
+		["u", (762,775), "Unknown"],		
 		]
 	}
 
@@ -64,11 +64,11 @@ spots["b1"] = {
 		["u",(980,1144), "basketball court", None,	 ["sunday","monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]],		
 		],	
 	"houses": [
-		["u", (83,97), "Arla"],
-		["u", (223,237), "Hilberding"],
+		["u", (83,97), "Jenny"],
+		["u", (223,237), "Miranda"],
 		["u", (373,385), "Your"],
-		["u", (809,822), "Wood"],
-		["u", (883,897), "Pecker"],
+		["u", (809,822), "Lisa"],
+		["u", (883,897), "Zoe"],
 		]
 	}
 	

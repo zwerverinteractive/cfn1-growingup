@@ -228,8 +228,12 @@ class Places:
 						
 						price = player.stats["creativity"] * randint(1,6)
 						engine.text.mw("Passerby: Hey, that's pretty good! I wouldn't mind having that over my fireplace! I'll buy it for " + str(price) + "$")
-						engine.text.mw("You sell the painting for" + str(price) + "$.")
-						
+						c = engine.text.ch(["sure!", "no thanks!"])
+						if c == 0:				
+							engine.text.mw("You sell the painting for" + str(price) + "$.")
+						else:
+							engine.text.mw("Passerby: Ah, keeping it for someone special, eh?")
+							player.paintings += 1				
 						player.money += price
 						player.stats["creativity"] += 6
 						player.stats["cool"] += 1
@@ -254,7 +258,9 @@ class Places:
 				engine.time.hour += 2
 				if player.inventory["pen"] and player.inventory["paper"] and randint(0,1) == 0:
 					engine.text.mw("Looking at that beautiful lake, and the air feeling especially friendly, you write the following poem...")
-					player.poems.append(engine.text.poem())
+					p = engine.text.poem()
+					engine.text.mw(p)
+					player.poems.append(p)
 					player.stats["romance"] += 2
 				else:
 					engine.text.mw("For some reason sitting here always makes you think about talking to girls and holding their hand.")
