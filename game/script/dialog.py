@@ -617,7 +617,7 @@ class Dialog:
 					else:
 						t.mw(name+": Take your time, I understand this is a big decision.")
 	
-	if player.kisses > 4:
+	if engine.player.kisses > 4:
 		t.mw("You head home with a thumping heart, knowing you just kissed every girl in town.")
 		t.mw("As you close the door behind you your dad looks at you with a smirk on his face.")
 		t.mw("Dad: You didn't think I'd find out huh? You're the talk of the town, son!")
