@@ -438,7 +438,7 @@ class Dialog:
 					elif c == 2:
 						t.mw(name+": can't even appreciate a sunrise. pfff.")
 				elif person.know == 4:
-					if player.stats["romance"] < 10:
+					if engine.player.stats["romance"] < 10:
 						t.mw(name+": That's no way to approach a lady. You need to learn a bit about romance!")
 					else:
 						t.mw(name+": Hello again. i've see you around the lake a couple times. Pretty isn't it?")
@@ -451,7 +451,7 @@ class Dialog:
 						else:
 							t.mw(name+": then it must have been someone who looks like you.")
 				elif person.know == 5:
-					if player.inventory["tuxedo"]:	
+					if engine.player.inventory["tuxedo"]:	
 						t.mw(name+": Hello.  you know, you look just like that famous actor.")
 						t.mw(name+": if you turn your head just the right way.")
 						while True:
@@ -467,7 +467,7 @@ class Dialog:
 								else:
 									t.mw("You haven't written any poems.")
 							elif c == 1:
-								if player.inventory["dress"]:
+								if engine.player.inventory["dress"]:
 									t.mw(name+": for me? ow wow! I'm so excited and totaly not creeped out!!!")
 									t.mw(name+": this is like in the romance movies, (and thrillers about stalkers)")
 									person.know += 1
@@ -500,7 +500,7 @@ class Dialog:
 						t.mw(name+": now i have to kiss you on the lips. close your eyes.")
 						t.mw(name+" gives you a long kiss on the lips. You feel sparks in your head and tummy.")
 						t.mw(name+": Well that was all very wonderful. But, I have to go now, see you around!")
-						player.kisses += 1
+						engine.player.kisses += 1
 						person.know += 1
 				elif person.know == 8:
 					t.mw(name+": Are you my boyfriend now?")
