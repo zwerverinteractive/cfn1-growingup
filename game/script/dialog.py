@@ -303,7 +303,7 @@ class Dialog:
 					t.mw(name+": Hey, I've seen you around! What is your name?")
 					c = t.ch(["Tell her your name.", "What's it too ya?"])
 					if c == 0:
-						t.mw("Lisa: That's a cool name duuuude. My name is jenny, nice to meet you.")
+						t.mw("Lisa: That's a cool name duuuude. My name is Lisa, nice to meet you.")
 						person.know += 1
 					else:
 						t.mw("girl: How rude!")
@@ -319,6 +319,9 @@ class Dialog:
 							person.know += 1
 						else:
 							t.mw(name+": To each their own.")
+					else:
+						t.mw(name+": ....")
+						t.mw(name+" is clearly not in her element.")
 				elif person.know == 4:
 					if engine.player.stats["intelligence"] < 25:
 						r=choice([

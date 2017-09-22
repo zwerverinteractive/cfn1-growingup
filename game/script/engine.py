@@ -39,7 +39,7 @@ class Engine():
 		self.player = Player()
 		self.dialog = Dialog()
 		self.cars = []
-		
+		self.text.mw("Day " + str(self.time.day) + ". " + self.time.days[(engine.time.day-1)%7])
 		print("Loaded and ready to go!")
 		self.running = True
 		while self.running:
@@ -52,7 +52,6 @@ class Engine():
 			if c == "a1" or c == "a2" or c == "b1" or c == "b2":
 				if randint(0,5000) == 0:
 					self.cars.append(Car())
-			
 			for c,car in enumerate(self.cars):
 				car.update()
 				if car.alive == False:
@@ -63,11 +62,7 @@ class Engine():
 			self.girls.update()
 			self.player.update()
 			self.gscreen.blit(self.player.surf, self.player.rect)
-			
-			if self.player.z:
-				self.player.z = False
-				self.text.mw("Day " + str(self.time.day) + ". " + str(self.time.current_day))
-			
+						
 			if self.player.rect[0] > 64-8:
 				self.screen.blit(self.gscreen, (-self.player.rect[0]+64-8,0))
 			else:

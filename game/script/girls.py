@@ -14,7 +14,7 @@ girl["Jenny"] = {
 		#time, 	room, 	x
 		(7,		"b2", 	800, "school"),
 		(8,   "invisible", 780, "school"),
-		(15,	"b2",	432, "school"),
+		(15,	"b2",	800, "school"),
 		(16, 	"a1", 	433, "the gym"),
 		(17, "invisible", 450, "the gym"),
 		(18, 	"a1", 	433, "the gym"),
@@ -49,10 +49,10 @@ girl["Zoe"] = {
 		},
 	"schedule_everyday" : (
 		#time, 	room, 	x
-		(7,		"b2", 	810, "school"),
+		(7,		"b2", 	820, "school"),
 		(8,   "invisible", 780, "school"),
-		(15,	"b2",	432, "school"),
-		(16, 	"a1", 	433, "the toystore"),
+		(14,	"b2",	820, "school"),
+		(15, 	"a1", 	433, "the toystore"),
 		(18,	"a1",	926, "skatepark"),
 		(19,	"b1",	893, "my home"),
 		(20,	"invisible", 888, "my home"),
@@ -88,10 +88,10 @@ girl["Lisa"] = {
 		},
 	"schedule_everyday" : (
 		#time, 	room, 	x
-		(7,		"b2", 	810, "school"),
+		(7,		"b2", 	840, "school"),
 		(8,   "invisible", 780, "school"),
-		(15,	"b2",	432, "school"),
-		(16, 	"a1", 	1064, "the library"),
+		(14,	"b2",	840, "school"),
+		(15, 	"a1", 	1064, "the library"),
 		(17, 	"invisible", 	1075, "the library"),
 		(18, 	"a1", 	1064, "the library"),
 		(19,	"b1",	800, "my home"),
@@ -128,10 +128,10 @@ girl["Miranda"] = {
 		},
 	"schedule_everyday" : (
 		#time, 	room, 	x
-		(7,		"b2", 	800, "school"),
+		(7,		"b2", 	770, "school"),
 		(8,   "invisible", 780, "school"),
-		(15,	"b2",	432, "school"),
-		(16, 	"a1", 	300, "the clothing store"),
+		(14,	"b2",	770, "school"),
+		(15, 	"a1", 	300, "the clothing store"),
 		(17, 	"invisible", 	290, "the clothing store"),
 		(18, 	"a1", 	300, "the clothing store"),
 		(19,	"b1",	240, "my home"),
@@ -166,10 +166,10 @@ girl["Tanya"] = {
 		},
 	"schedule_everyday" : (
 		#time, 	room, 	x
-		(7,		"b2", 	800, "school"),
+		(7,		"b2", 	740, "school"),
 		(8,   "invisible", 780, "school"),
-		(15,	"b2",	432, "school"),
-		(16, 	"a2", 	920, "the park"),
+		(14,	"b2",	740, "school"),
+		(15, 	"a2", 	920, "the park"),
 		(17, 	"invisible", 	930, "the park"),
 		(18, 	"a2", 	920, "the park"),
 		(19,	"a2",	100, "my home"),
@@ -239,11 +239,8 @@ class Girl():
 				
 		self.sched = a
 		if self.sched > os:
-			try:
-				self.current_room = self.properties[sched][self.sched+1][1]
-				self.rect[0] = self.real_rect[0] = self.properties[sched][self.sched+1][2]
-			except:
-				pass
+			self.current_room = self.properties[sched][self.sched-1][1]
+			self.rect[0] = self.real_rect[0] = self.properties[sched][self.sched-1][2]
 		
 		if engine.time.hour < 20:
 			if engine.time.hour ==  self.properties[sched][self.sched][0]:
@@ -275,8 +272,9 @@ class Girl():
 				
 			self.rect[0] = round(self.real_rect[0])
 		else:
-			if engine.player.rect[0] < self.rect[0]: self.current_animation = "w_left"; self.draw()
-			elif engine.player.rect[0] > self.rect[0]: self.current_animation = "w_right"; self.draw()
+			if self.current_room != "invisible":
+				if engine.player.rect[0] < self.rect[0]: self.current_animation = "w_left"; self.draw()
+				elif engine.player.rect[0] > self.rect[0]: self.current_animation = "w_right"; self.draw()
 					
 	def move(self, d):
 		self.current_frame += 1

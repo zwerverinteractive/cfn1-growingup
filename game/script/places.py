@@ -14,6 +14,7 @@ class Places:
 					if player.money > 5:
 						player.money -= 5
 						player.inventory["pen"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("You acquired a pen!")
 					else: engine.text.mw("You don't have enough money.")
 				else: engine.text.mw("You have no need for another pen as you know perfectly well how not to lose it.")
@@ -22,6 +23,7 @@ class Places:
 					if player.money > 1:
 						player.money -= 1
 						player.inventory["paper"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("At last! You have a piece of paper!")
 					else: engine.text.mw("You don't even have a single lousy buck.")
 				else: engine.text.mw("You can only carry one piece of paper. (Because game-logic.)")
@@ -35,6 +37,7 @@ class Places:
 					if player.money > 150:
 						player.money -= 150
 						player.inventory["tuxedo"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("The storekeeper winks at you as she pulls the tux over the counter. Sharp as a wistle!")
 					else: engine.text.mw("You imagine how good that tux would look on you. Sadly, you don't have enough money.'")
 				else: engine.text.mw("You already own a tuxedo.")
@@ -44,6 +47,7 @@ class Places:
 					if player.money > 200:
 						player.money -= 200
 						player.inventory["dress"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("With a slight stutter you tell the storekeeper it's for someone else, who smiles and wraps it into a beautiful package.")
 					else: engine.text.mw("Couragously you take the dress try to pay for it... but it was to expensive.")
 				else: engine.text.mw("You already own a dress. Dad might get suspicious if you'd got another one.")
@@ -53,6 +57,7 @@ class Places:
 					if player.money > 25:
 						player.money -= 25
 						player.inventory["sunglasses"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("Nonchalantly you throw the money on the counter and put on the sunglasses. Bad to the bone, you think to yourself.")
 					else: engine.text.mw("Though these sunglasses would look really cool, but you simple can't afford them.")
 				else: engine.text.mw("You already own a pair of sunglasses.")
@@ -66,6 +71,7 @@ class Places:
 					if player.money > 100:
 						player.money -= 100
 						player.inventory["skateboard"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("You pull your fingers over the wheel, making them purr for a good few seconds and hand over the money.")
 					else: engine.text.mw("You imagine yourself riding the curbs, wind in your hair. Sadly your purse is too light.")
 				else: engine.text.mw("You already own a skateboard.")
@@ -75,6 +81,7 @@ class Places:
 					if player.money > 50:
 						player.money -= 50
 						player.inventory["basketball"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("Ah, throwing the ol' b-ball! You pass it clumsily through your legs before legally turning it into your posession.")
 					else: engine.text.mw("That ball... is too expensive.")
 				else: engine.text.mw("You have no need for another basketball.")
@@ -83,6 +90,7 @@ class Places:
 					player.money -= 10
 					engine.text.mw("After pointing a finger at the Gobamen trading-card pack and trade it in for money you peel off its skin and look at the cards.")
 					if player.inventory["tradingcards"] == 0:
+						engine.sound.playSound("buy")
 						engine.text.mw("Oh boy! Your very first cards! Eight of them!")
 						player.inventory["tradingcards"] += 8
 					else:
@@ -91,6 +99,7 @@ class Places:
 						elif c < 4: engine.text.mw("Meh! You already have most of these!")
 						elif c < 8: engine.text.mw("Not bad! A decent amount of new cards!")
 						elif c == 8: engine.text.mw("Wow, lucky chance! You didn't have any of these!")
+						engine.sound.playSound("buy")
 						player.inventory["tradingcards"] += c
 				else:
 					if player.inventory["tradingcards"] > 0: engine.text.mw("Must... Have... Gobamen... The clerk shakes his head as you show him the insides of your pockets.")
@@ -105,6 +114,7 @@ class Places:
 					if player.money > 50:
 						player.money -= 50
 						player.inventory["paint"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("You take from the shelves all the colors of the rainbow and give the artisan some money.")
 					else: engine.text.mw("With all that paint you could make a really pretty painting. Sadly, you don't have enough money.")
 				else: engine.text.mw("You already have enough paint.")
@@ -113,6 +123,7 @@ class Places:
 					if player.money > 5:
 						player.money -= 5
 						player.inventory["brush"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("You put the brush under your nose, pretending it to be a moustache before handing over the money.")
 					else: engine.text.mw("To bad, your purse is to light to acquire the brush.")
 				else: engine.text.mw("You already have a brush.")
@@ -122,6 +133,7 @@ class Places:
 					if player.money > 10:
 						player.money -= 10
 						player.inventory["canvas"] = True
+						engine.sound.playSound("buy")
 						engine.text.mw("You close one eye, staring at the canvas with the other, imagining what to put on it, then pay for it.")
 					else: engine.text.mw("You do not have enough money to buy the canvas, your vision will have to wait.")
 				else: engine.text.mw("You should finish your painting before buying a new canvas.")
@@ -132,6 +144,7 @@ class Places:
 			if c == 0:
 				if player.inventory["gym-sub"] == False:
 					player.inventory["gym-sub"] = True
+					engine.sound.playSound("buy")
 					engine.text.mw("Gym trainer: First month's free, after that it's 25$ a month.")
 				else:
 					engine.text.mw("Gym trainer: You already have a subscription here, silly.")
@@ -147,6 +160,7 @@ class Places:
 							player.stats["strength"] += 2
 							engine.text.mw("You push yourself to the limit for a couple of hours. Strength increased!")
 							engine.text.mw("Gym trainer: Way to go, pal! Feel the burn!")
+							engine.sound.playSound("statup")
 						else:
 							engine.text.mw("You waste a couple of hours not finding it in you to really push yourself.")
 							engine.text.mw("Gym trainer: To bad, pal! But don't feel bad, you'll do better next time.")
@@ -161,6 +175,7 @@ class Places:
 					player.stats["cool"] += 6
 					engine.text.mw("Cruisin' that halfpipe and hitting your grinds perfectly. Cool significantly increased!")
 					engine.text.mw("Skaterpunk: Gnarly, dude. You sponsored or something?")
+					engine.sound.playSound("statup")
 				elif r == 1:
 					player.stats["cool"] -=2
 					engine.text.mw("Ouch! You made a pretty nasty fall and ripped your pants. Cool decreased. ")
@@ -171,12 +186,14 @@ class Places:
 				else:
 					player.stats["cool"] += 2
 					engine.text.mw("What a nice feeling to go down that ramp. And you even landed a couple of tricks. Cool increased.")
+					engine.sound.playSound("statup")
 					engine.text.mw("Skaterpunk: Yeah, you know what you're doing. See you around!")
 			else:
 				engine.text.mw("You don't own a skateboard, so you have no choice but to hang around for a couple of hours.")
 				engine.text.mw("Skaterpunk: Eh, there's really no reason to be here without wheels, dude.")
 				engine.text.mw("Cool ever slightly increased")
 				player.stats["cool"] += 1
+				engine.sound.playSound("statup")
 				engine.time.hour += 2
 		elif location == "library":
 			c = engine.text.ch(["get library card 5$", "read books"])
@@ -197,6 +214,7 @@ class Places:
 						if r != 0:
 							player.stats["intelligence"] += 2
 							engine.text.mw("You immersed yourself in a really good book.  Intelligence increased!")
+							engine.sound.playSound("statup")
 							engine.text.mw("Library: You looked really concentrated. Clearly an aficionado of the written word.")
 						else:
 							engine.text.mw("You waste a couple of hours staring blankly at the pages and rereading scentenses.")
@@ -225,6 +243,7 @@ class Places:
 						player.painting = 0
 						engine.text.mw("At long last you finish your painting! And what a beauty it is!")
 						engine.text.mw("Creativity significantly increased, cool slightly increased.")
+						engine.sound.playSound("statup")
 						
 						price = player.stats["creativity"] * randint(1,6)
 						engine.text.mw("Passerby: Hey, that's pretty good! I wouldn't mind having that over my fireplace! I'll buy it for " + str(price) + "$")
@@ -239,16 +258,19 @@ class Places:
 						player.stats["cool"] += 1
 					else:
 						engine.text.mw("You make decent progress on your painting. Creativity increased.")
+						engine.sound.playSound("statup")
 						player.stats["creativity"] += 2
 				else:
 					r = randint(0,10)
 					if r > 5:			
 						engine.text.mw("You stroll around the park for a couple of hours and notice all the intricate shapes in nature.")
 						engine.text.mw("Creativity slightly increased.")
+						engine.sound.playSound("statup")
 						player.stats["creativity"] += 1
 					else:
 						engine.text.mw("You sit on a bench for a couple of hours, staring at the ducks, thinking of a certain girl.")
 						engine.text.mw("Romance increased.")
+						engine.sound.playSound("statup")
 						player.stats["romance"] += 1
 				
 		elif location == "lake":
@@ -265,6 +287,7 @@ class Places:
 				else:
 					engine.text.mw("For some reason sitting here always makes you think about talking to girls and holding their hand.")
 					engine.text.mw("Romance slightly increased.")
+					engine.sound.playSound("statup")
 					player.stats["romance"] += 1
 					
 		elif location == "basketball court":
@@ -275,6 +298,7 @@ class Places:
 					engine.time.hour += 2
 					if player.stats["strength"] >= 25:
 						engine.text.mw("You win a game of  basketball! Strength and cool increased.")
+						engine.sound.playSound("statup")
 						engine.text.mw("Basketball player: *pant* *pant* Wowee, that's some fine bouncin'! Didn't stand a chance!'")
 						player.stats["strength"] += 2
 						player.stats["cool"] += 1
@@ -302,6 +326,7 @@ class Places:
 							engine.time.hour += 2
 							player.money -= 5
 							engine.text.mw("You jump into the pool and pull a couple of laps. Strength increased.")
+							engine.sound.playSound("statup")
 							engine.text.mw("Pool manager: Nothing like a good swim to boost your health!")
 							player.stats["strength"] += 1
 						else:
@@ -427,6 +452,7 @@ class Places:
 				engine.text.mw("You enter the building and after a handshake and some coffee the sermon begins.")
 				engine.text.mw("Preacher: " + choice(preach))
 				engine.text.mw("People pray and go away leaving you with nothing to say. Creativity slightly increased.")
+				engine.sound.playSound("statup")
 				player.church += 1
 				player.stats["creativity"] += 1
 			elif engine.time.hour > 9:

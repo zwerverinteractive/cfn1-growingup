@@ -56,13 +56,16 @@ class Text():
 					self.surf.fill((0,0,0), (2,2,60,106))		
 					for l, line in enumerate(self.processed_lines):
 						self.surf.blit(engine.text.m(line), (4,4+(l*8)))
+						engine.sound.playSound("talkbeep")
 
 				if engine.controls.buttons["down"]:
 					engine.controls.buttons["down"] = False
 					self.time_tick = 0
+					engine.sound.playSound("done")
 			else:
 				if engine.controls.buttons["down"]:
 					engine.controls.buttons["down"] = False
+					engine.sound.playSound("done")
 					self.active = False
 					break
 
@@ -79,6 +82,10 @@ class Text():
 		self.surf = pygame.Surface((110, 64))
 		self.active = True
 		self.sel = 0
+		engine.controls.buttons["up"] = False
+		engine.controls.buttons["down"] = False
+		engine.controls.buttons["left"] = False
+		engine.controls.buttons["right"] = False
 		while self.active:
 			engine.controls.update()
 			if engine.controls.buttons["up"]:

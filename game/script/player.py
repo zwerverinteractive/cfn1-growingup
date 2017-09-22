@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+
 class Player():
 	def __init__(self):
 		engine.objects.append(self)
-	
 		self.real_rect = [291,42,16,32]
 		self.rect = [291,42,16,32]
 		self.surf = pygame.Surface((16,32))
@@ -35,7 +35,6 @@ class Player():
 		for i in inv:
 			 self.inventory[i] = False
 		self.inventory["tradingcards"] = 0
-		
 		#ANIMATION PROPERTIES
 		self.current_animation = "w_left"
 		self.current_frame = 0
@@ -44,6 +43,8 @@ class Player():
 		self.animations = {
 			"w_right" : [0,1,2,3,4],
 			"w_left" : [4,5,6,7,8],
+			"skate_right" : [8],
+			"skate_left" : [9],
 			}
 		
 	def update(self):
@@ -57,13 +58,23 @@ class Player():
 			if self.frame_clock > self.frame_speed:
 				self.frame_clock = 0;
 				self.current_frame += 1
-			if b["left"] and self.real_rect[0]+6 > borders[0]:
-				self.real_rect[0] -= self.speed; self.current_animation = "w_left"
-			elif b["right"] and self.real_rect[0]+6 < borders[1]:
-				self.real_rect[0] += self.speed; self.current_animation = "w_right"
+			if self.inventory["skateboard"] and b["skate"]:
+				engine.sound.playSound("skate")
+				self.speed = 0.1
+				if b["left"] and self.real_rect[0]+6 > borders[0]:
+					self.real_rect[0] -= self.speed; self.current_animation = "skate_left"
+				elif b["right"] and self.real_rect[0]+6 < borders[1]:
+					self.real_rect[0] += self.speed; self.current_animation = "skate_right"
+			else:
+				self.speed = 0.05
+				if b["left"] and self.real_rect[0]+6 > borders[0]:
+					self.real_rect[0] -= self.speed; self.current_animation = "w_left"
+				elif b["right"] and self.real_rect[0]+6 < borders[1]:
+					self.real_rect[0] += self.speed; self.current_animation = "w_right"
 
 			if self.current_frame >= len(self.animations[self.current_animation])-1:
 				self.current_frame = 0
+				if self.speed == 0.05: engine.sound.playSound("step")
 			self.surf.fill((0,255,0))
 			cf = self.animations[self.current_animation][self.current_frame]
 			self.surf.blit(engine.images.images["player"][cf], (0,0))
@@ -85,12 +96,13 @@ class Player():
 						if not h[2] in self.deliver:
 							self.deliver.append(h[2])
 							engine.text.mw("You open the mailbox and slide in an edition.")
+							engine.sound.playSound("newspaper")
 							b["up"] = False
 						else:
 							if h[2] != "Your":
 								b["up"] = False
 								engine.text.mw("Even though you delivered a newspaper to this house already, you slip another one in just to be sure.")
-
+								engine.sound.playSound("newspaper")
 		if len(self.deliver)-1 >= 6:
 			self.salary += 25
 			del self.deliver[:]
@@ -98,8 +110,16 @@ class Player():
 			self.delivered = True
 			self.papers = False
 			engine.text.mw("You hear the spirit-voice of the newspaper chief in the back of your head.")
-			engine.text.mw("chief: That's the last of 'em! Good job, kid! Come back to the office to recieve your salary.")
+			engine.text.mw("chief: That's the last of 'em! Good job, kid! Come back to the office any time to recieve your salary.")
+			engine.sound.playSound("newspaperdone")
 
+		girls = engine.girls.girls
+		for g in girls:
+			if girls[g].current_room == engine.room.current_room:
+				if self.rect[0]+12 > girls[g].rect[0] and self.rect[0] < girls[g].rect[0]+12:
+					engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+3, self.rect[1]-14))
+					if b["up"]: girls[g].talk(); b["up"] = False
+				
 		if "exits" in engine.room.hotspots[cr]: exits = engine.room.hotspots[cr]["exits"]
 		else: exits = []
 		for e in exits:
@@ -109,6 +129,11 @@ class Player():
 				engine.gscreen.blit(engine.images.images["icons"][d], (self.rect[0]+3, self.rect[1]-14))
 				if (b["down"] and d == 1) or (b["up"] and d == 0):
 					self.rect[0] = e[3]; self.real_rect[0] = e[3]
+					if e[2] == "home-down" and engine.room.current_room == "home-up": engine.sound.playSound("stair")
+					elif e[2] == "home-up" and engine.room.current_room == "home-down": engine.sound.playSound("stair")
+					elif engine.room.current_room == "home-down": engine.sound.playSound("door")
+					elif e[2] == "home-down": engine.sound.playSound("door")
+					else: engine.sound.playSound("corner")
 					engine.room.swap(e[2])
 					b["down"] = False; b["up"] = False
 					
@@ -122,28 +147,20 @@ class Player():
 				if (b["down"] and d == 1) or (b["up"] and d == 0):
 					if (p[3] != None):
 						if p[3] == "home-down": self.dad = True
-						
 						if (time.hour >= p[3][0][0] and time.hour <= p[3][1][0]) and (time.current_day in p[4]):
 							engine.places.enter(p[2])
 						else: engine.text.mw("Its not open. A sign says open on " + str(p[4]) + " from " + str(p[3][0][0]) + " till " + str(p[3][1][0]) + ".")
 					else: engine.places.enter(p[2])
 		
-		girls = engine.girls.girls
-		for g in girls:
-			if girls[g].current_room == engine.room.current_room:
-				if self.rect[0]+12 > girls[g].rect[0] and self.rect[0] < girls[g].rect[0]+12:
-					engine.gscreen.blit(engine.images.images["icons"][0], (self.rect[0]+3, self.rect[1]-14))
-					if b["up"]: girls[g].talk(); b["up"] = False
-				
 				
 		d1 = [
 			"hey there sleepypants, you finally woke up? there's not a lot to do here on sunday, so why not explore the town a bit?",
 			"Good luck on your first day at school this week!",
 			"Look who we have here. Sleep well? Ready for school?",
-			"Hey, son. Aren't you still a little young to be drinking coffee?'"
+			"Hey, son. Aren't you still a little young to be drinking coffee?",
 			"Mornin'. Thursday is a magic day!",
 			"Mornin'.'Friday, almost weekend!",
-			"Morning. Its finally weekend. Here, you can have your allowance."
+			"Morning. Its finally weekend. Here, you can have your allowance.",
 		]
 		
 		d2 = [
@@ -152,10 +169,17 @@ class Player():
 			"And, hey! love you, son.",
 			"I'm proud.",
 			"And don't forget, I'm really proud of you, son.",
-			"Oh, and do you want to do some board games with me tonight?'"
-			"Don't go spend it all in one place now."
+			"Oh, and do you want to do some board games with me tonight?",
+			"Don't go spend it all in one place now.",
 			]
-				
+		
+		if engine.room.current_room[0] == "h":
+			if engine.sound.current_song != "home":
+				engine.sound.playMusic("home")
+		else:
+			if engine.sound.current_song != "town":
+				engine.sound.playMusic("town")
+		
 		if engine.room.current_room == "home-down":
 			if self.dad:
 				if self.firstdad:
@@ -168,7 +192,6 @@ class Player():
 						self.firstdad = False
 				elif engine.time.hour >= 18:
 					if self.rect[0] > 84 and self.rect[0] < 88:
-						
 						if engine.time.hour > 22:
 							engine.text.mw("Dad: Well, well, look what the cat dragged in.")
 							engine.text.mw("Dad: You're home late... I went ahead and had supper without you. This is very dissapointing, son.")
@@ -210,7 +233,7 @@ class Player():
 						self.endDay()
 						
 	def endDay(self):
-		engine.text.mw("Insert dream-sequence here.")
+		#engine.text.mw("Insert dream-sequence here.")
 		engine.room.swap("home-up")
 		self.rect = [291,42,16,32]; self.real_rect = [291,42,16,32]
 		engine.time.day += 1
@@ -227,5 +250,8 @@ class Player():
 		for girl in engine.girls.girls:
 			g = engine.girls.girls[girl]
 			g.sched = 0
+			g.spoken = False
 			g.current_room = g.properties["home"][1]
 			g.rect[0] = g.real_rect[0] = g.properties["home"][2]
+			
+		engine.text.mw("Day " + str(engine.time.day) + ". " + engine.time.days[(engine.time.day-1)%7])
