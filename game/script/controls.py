@@ -21,7 +21,7 @@ class Controls():
 	def update(self):
 		for e in pygame.event.get():
 			if e.type == pygame.QUIT:
-				self.buttons["quit"] = True
+				engine.close()
 			if e.type == pygame.KEYDOWN:
 				for b in self.buttons:
 					if e.key == self.cfg[b]:

@@ -8,7 +8,7 @@ class Car():
 		self.surf.fill((0,255,0))
 		self.surf.set_colorkey((0,255,0))
 		self.surf.blit(engine.images.images["cars"][rc], (0,0))
-		self.speed = 0.2
+		self.speed = 10
 		self.alive = True
 		self.d = choice((self.speed,-self.speed))
 		if self.d < 0:

@@ -21,7 +21,7 @@ class Player():
 		self.painting = 0
 		self.paintings = 0
 		self.church = 0
-		self.speed = 0.05
+		self.speed = 10
 		self.dad = True; self.firstdad = True
 		self.z = True
 		self.stats = {
@@ -40,7 +40,7 @@ class Player():
 		self.current_animation = "w_left"
 		self.current_frame = 0
 		self.frame_clock = 0
-		self.frame_speed = 64
+		self.frame_speed = 2
 		self.animations = {
 			"w_right" : [0,1,2,3,4],
 			"w_left" : [4,5,6,7,8],
@@ -61,13 +61,13 @@ class Player():
 				self.current_frame += 1
 			if self.inventory["skateboard"] and b["skate"]:
 				engine.sound.playSound("skate")
-				self.speed = 0.1
+				self.speed = 1
 				if b["left"] and self.real_rect[0]+6 > borders[0]:
 					self.real_rect[0] -= self.speed; self.current_animation = "skate_left"
 				elif b["right"] and self.real_rect[0]+6 < borders[1]:
 					self.real_rect[0] += self.speed; self.current_animation = "skate_right"
 			else:
-				self.speed = 0.05
+				self.speed = 1.4
 				if b["left"] and self.real_rect[0]+6 > borders[0]:
 					self.real_rect[0] -= self.speed; self.current_animation = "w_left"
 				elif b["right"] and self.real_rect[0]+6 < borders[1]:

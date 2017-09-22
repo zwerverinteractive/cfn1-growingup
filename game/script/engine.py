@@ -25,7 +25,7 @@ class Engine():
 		#pygame.mouse.set_visible(False)
 		#pygame.event.set_grab(True)
 		self.clock = pygame.time.Clock()
-		self.wres = (800, 600); self.sres = (128, 128); flags = 0#pygame.FULLSCREEN | pygame.DOUBLEBUF
+		self.wres = (info.current_w, info.current_h); self.sres = (128, 128); flags = 0#pygame.FULLSCREEN | pygame.DOUBLEBUF
 		self.window = pygame.display.set_mode(self.wres, flags)
 		self.screen = pygame.Surface(self.sres)
 		self.gscreen = pygame.Surface((1280,128))
@@ -59,12 +59,12 @@ class Engine():
 		print("Loaded and ready to go!")
 		self.running = True
 		while self.running:
-			self.clock.tick()
+			self.clock.tick(30)
 			self.controls.update()
 			self.gscreen.blit(self.room.surf, (0,0))
 			c = engine.room.current_room
 			if c == "a1" or c == "a2" or c == "b1" or c == "b2":
-				if randint(0,5000) == 0:
+				if randint(0,100) == 0:
 					self.cars.append(Car())
 			for c,car in enumerate(self.cars):
 				car.update()
@@ -83,7 +83,7 @@ class Engine():
 			self.flip()
 			if self.controls.buttons["quit"]:
 				self.text.mw("Are you sure you want to quit? There is no save feature yet, so you have to start all over next time. Are you sure?")
-				c = self.text.ch(["All over? No way!", "I really have to go.", "I don't know!"])
+				c = self.text.ch(["No way!", "I really have to go.", "I don't know!"])
 				if c == 0:
 					self.text.mw("Cool, lets continue the adventure then!")
 				elif c == 1:

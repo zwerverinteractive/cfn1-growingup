@@ -22,15 +22,17 @@ class Text():
 		self.text = text
 		self.words = text.split()
 		self.time = 0
-		self.time_tick = 50
+		self.time_tick = 1
 		self.active = True
 		self.processed_lines = []
 		self.processed_lines.append("")
 		self.current_line = 0
 		self.current_word = 0
-		self.current_letter = 0	
+		self.current_letter = 0
 		self.f = True
 		while self.active:
+			if self.time_tick > 0:
+				engine.clock.tick(30)
 			engine.controls.update()
 			if self.current_word < len(self.words):
 				self.time += 1
@@ -46,7 +48,7 @@ class Text():
 						except:
 							pass
 						self.linesize = self.font.size(self.processed_lines[self.current_line])[0]
-						if (self.linesize + self.wordsize) > 54:
+						if (self.linesize + self.wordsize) > 52:
 							self.current_line += 1
 							self.processed_lines.append("")
 						else:
@@ -59,8 +61,8 @@ class Text():
 						engine.sound.playSound("talkbeep")
 
 				if engine.controls.buttons["down"]:
-					engine.controls.buttons["down"] = False
 					self.time_tick = 0
+					engine.controls.buttons["down"] = False
 					engine.sound.playSound("done")
 			else:
 				if engine.controls.buttons["down"]:
@@ -73,10 +75,6 @@ class Text():
 			self.surf.blit(engine.images.images["icons"][1], (50,95))
 			engine.screen.blit(self.surf, (10,10))
 			engine.flip()
-			
-			
-				
-				
 		
 	def ch(self,choices):
 		self.surf = pygame.Surface((110, 64))
@@ -87,6 +85,7 @@ class Text():
 		engine.controls.buttons["left"] = False
 		engine.controls.buttons["right"] = False
 		while self.active:
+			engine.clock.tick(30)
 			engine.controls.update()
 			if engine.controls.buttons["up"]:
 				self.sel -= 1
@@ -100,9 +99,9 @@ class Text():
 					self.sel = 0
 				engine.sound.playSound("done")
 				engine.controls.buttons["down"] = False
-			if engine.controls.buttons["right"]:
+			if engine.controls.buttons["right"] or engine.controls.buttons["trick"] or engine.controls.buttons["start"]:
 				self.active = False
-				engine.controls.buttons["right"] = False
+				engine.controls.buttons["right"] = engine.controls.buttons["trick"] = engine.controls.buttons["start"] =False
 				engine.sound.playSound("corner")
 				return self.sel
 				

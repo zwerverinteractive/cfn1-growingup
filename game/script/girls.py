@@ -210,7 +210,7 @@ class Girl():
 		self.surf.set_colorkey((0,255,0))
 		self.surf.fill((0,255,0))
 		self.surf.blit(engine.images.images[self.name][0], (0,0))
-		self.speed = 1
+		self.speed = 1.5
 		self.love = 0
 		self.know = 0
 		self.run = False
@@ -219,7 +219,7 @@ class Girl():
 		self.current_animation = "w_left"
 		self.current_frame = 0
 		self.frame_clock = 0
-		self.frame_speed = 64
+		self.frame_speed = 2
 		self.animations = {
 			"w_right" : [0,1,2,3,4],
 			"w_left" : [4,5,6,7,8],
