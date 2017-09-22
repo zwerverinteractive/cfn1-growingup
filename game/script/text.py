@@ -92,16 +92,18 @@ class Text():
 				self.sel -= 1
 				if self.sel < 0:
 					self.sel = len(choices)-1
+				engine.sound.playSound("done")
 				engine.controls.buttons["up"] = False
 			if engine.controls.buttons["down"]:
 				self.sel += 1
 				if self.sel > len(choices)-1:
 					self.sel = 0
-				print(self.sel)
+				engine.sound.playSound("done")
 				engine.controls.buttons["down"] = False
 			if engine.controls.buttons["right"]:
 				self.active = False
 				engine.controls.buttons["right"] = False
+				engine.sound.playSound("corner")
 				return self.sel
 				
 			self.surf.fill((0,0,0))

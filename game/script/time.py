@@ -4,7 +4,7 @@ class Time():
 		self.days = ["sunday","monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
 		self.day = 1
 		self.hour = 8
-		self.minute = 0
+		self.minute = 30
 		self.current_day = self.days[(self.day-1)%7]
 		self.mili = 0
 		self.tick = 1000

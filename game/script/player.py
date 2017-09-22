@@ -172,6 +172,8 @@ class Player():
 			"Oh, and do you want to do some board games with me tonight?",
 			"Don't go spend it all in one place now.",
 			]
+		if self.job:
+			d2[1] = "Oh, and are you making money delivering newspapers? That's great!"
 		
 		if engine.room.current_room[0] == "h":
 			if engine.sound.current_song != "home":
@@ -237,8 +239,15 @@ class Player():
 		engine.room.swap("home-up")
 		self.rect = [291,42,16,32]; self.real_rect = [291,42,16,32]
 		engine.time.day += 1
-		engine.time.hour = 7
-		engine.time.minute = 0
+		if engine.time.days[(engine.time.day-1)%7] == "saturday":
+			engine.time.hour = 9
+			engine.time.minute = 30
+		elif engine.time.days[(engine.time.day-1)%7] == "sunday":
+			engine.time.hour = 8
+			engine.time.minute = 30
+		else:
+			engine.time.hour = 8
+			engine.time.minute = 0
 		self.dad = True
 		self.school = False
 		self.firstdad = True
