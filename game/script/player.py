@@ -10,6 +10,7 @@ class Player():
 		self.surf.set_colorkey((0,255,0))
 		self.kisses = 0
 		self.money = 5
+		self.strike = 0
 		self.poems = []
 		self.job = False
 		self.delivered = False
@@ -172,6 +173,8 @@ class Player():
 			"Oh, and do you want to do some board games with me tonight?",
 			"Don't go spend it all in one place now.",
 			]
+			
+		
 		if self.job:
 			d2[1] = "Oh, and are you making money delivering newspapers? That's great!"
 		
@@ -194,16 +197,31 @@ class Player():
 						self.firstdad = False
 				elif engine.time.hour >= 18:
 					if self.rect[0] > 84 and self.rect[0] < 88:
-						if engine.time.hour > 22:
+						if engine.time.current_day != "sunday" and engine.time.current_day != "saturday" and self.school == False:
+							engine.text.mw("Dad: ... son?")
+							if engine.time > 21:
+								engine.text.mw("Dad: Not only are you home late...")
+								self.strike +=1
+							engine.text.mw("Dad: I got a call from your school today... they said they haven't seen you all day.")
+							engine.text.mw("Dad: This isn't like you at all, I'm very disappointed.")
+							engine.text.mw("Even though dad stayed very calm, you could feel his dissapointment in you right down to the stomach.")
+							engine.text.mw("With your head down you slowly go to your room, promising yourself never to skip school again.")
+							self.strike += 2
+							self.endDay()
+						
+						elif engine.time.hour > 22:
 							engine.text.mw("Dad: Well, well, look what the cat dragged in.")
 							engine.text.mw("Dad: You're home late... I went ahead and had supper without you. This is very dissapointing, son.")
 							engine.text.mw("Dad: Theres some food left in the fridge you'll have to eat cold.")
 							engine.text.mw("Dad, mumbling: try so hard to raise them right...")
 							engine.text.mw("You eat the cold food and head up to bed.")
+							self.strike += 2
 							self.endDay()
 						elif engine.time.hour > 21:
-							engine.text.mw("Dad: You're home late, son, watch some television while I prepare dinner.")
+							engine.text.mw("Dad: You're home late, son, please be home on time next time.")
+							engine.text.mw("Dad: watch some television while I prepare dinner.")
 							engine.text.mw("You watch some tv, eat dinner with dad, do your homework before falling sound asleep...")
+							self.strike += 1
 							self.endDay()
 							
 						else:
@@ -218,6 +236,7 @@ class Player():
 								engine.text.mw("Dad: sounding slightly emotional: You're fine! What the hell is this? You're dissapointing me, son.")
 								engine.text.mw("Dad: Your grounded for the rest of the day. Go upstairs and think about what you've done.")
 								engine.text.mw("You spend the rest of the day alone in your room.")
+								self.strike += 2
 								self.endDay()
 							elif engine.time.hour > 9:
 								engine.text.mw("Dad: What the hell are you doing here? Get your ass to school, pronto!")
@@ -234,6 +253,11 @@ class Player():
 						engine.text.mw("You watch some tv, eat dinner with dad and do your homework before falling sound asleep...")
 						self.endDay()
 						
+			if self.strike > 5:
+				engine.text.mw("That was the last straw. Your dad completely lost faith in you.")
+				engine.text.mw("Game over.")
+				engine.bye()
+						
 	def endDay(self):
 		#engine.text.mw("Insert dream-sequence here.")
 		engine.room.swap("home-up")
@@ -249,8 +273,8 @@ class Player():
 			engine.time.hour = 8
 			engine.time.minute = 0
 		self.dad = True
-		self.school = False
 		self.firstdad = True
+		self.school = False
 		self.delivered = False
 		self.papers = False
 		del self.deliver[:]
