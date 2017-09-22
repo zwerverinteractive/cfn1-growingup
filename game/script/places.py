@@ -73,9 +73,9 @@ class Places:
 						player.inventory["skateboard"] = True
 						engine.sound.playSound("buy")
 						engine.text.mw("You pull your fingers over the wheel, making them purr for a good few seconds and hand over the money.")
+						engine.text.mw("You can skate by holding shift and move around town a lot faster!")
 					else: engine.text.mw("You imagine yourself riding the curbs, wind in your hair. Sadly your purse is too light.")
 				else: engine.text.mw("You already own a skateboard.")
-
 			if c == 1:
 				if player.inventory["basketball"] == False:
 					if player.money > 50:
@@ -86,24 +86,34 @@ class Places:
 					else: engine.text.mw("That ball... is too expensive.")
 				else: engine.text.mw("You have no need for another basketball.")
 			if c == 2:
-				if player.money > 10:
-					player.money -= 10
-					engine.text.mw("After pointing a finger at the Gobamen trading-card pack and trade it in for money you peel off its skin and look at the cards.")
-					if player.inventory["tradingcards"] == 0:
-						engine.sound.playSound("buy")
-						engine.text.mw("Oh boy! Your very first cards! Eight of them!")
-						player.inventory["tradingcards"] += 8
-					else:
-						c = randint(0,8)
-						if c == 0: engine.text.mw("Oh no! You already have all of these!")
-						elif c < 4: engine.text.mw("Meh! You already have most of these!")
-						elif c < 8: engine.text.mw("Not bad! A decent amount of new cards!")
-						elif c == 8: engine.text.mw("Wow, lucky chance! You didn't have any of these!")
-						engine.sound.playSound("buy")
-						player.inventory["tradingcards"] += c
+				if player.inventory["tradingcards"] > 100:
+					engine.text.mw("There's no need to buy any more trading-cards. Your collection is complete!")
 				else:
-					if player.inventory["tradingcards"] > 0: engine.text.mw("Must... Have... Gobamen... The clerk shakes his head as you show him the insides of your pockets.")
-					else: engine.text.mw("Though you feel a certain itch looking at the trading-cards, you just can't afford them right now.")
+					if player.money > 10:
+						player.money -= 10
+						engine.text.mw("After pointing a finger at the Gobamen trading-card pack and trade it in for money you peel off its skin and look at the cards.")
+						if player.inventory["tradingcards"] == 0:
+							engine.sound.playSound("buy")
+							engine.text.mw("Oh boy! Your very first cards! Eight of them!")
+							player.inventory["tradingcards"] += 8
+						else:
+							c = randint(0,8)
+							if c == 0: engine.text.mw("Oh no! You already have all of these!")
+							elif c < 4: engine.text.mw("Meh! You already have most of these!")
+							elif c < 8: engine.text.mw("Not bad! A decent amount of new cards!")
+							elif c == 8: engine.text.mw("Wow, lucky chance! You didn't have any of these!")
+							engine.sound.playSound("buy")
+							player.inventory["tradingcards"] += c
+							
+							if player.inventory["tradingcards"] > 100:
+								engine.text.mw("Finally...")
+								engine.text.mw("After all this time...")
+								engine.text.mw("you collection...")
+								engine.text.mw("is...")
+								engine.text.mw("complete!!!!!!!!")
+					else:
+						if player.inventory["tradingcards"] > 0: engine.text.mw("Must... Have... Gobamen... The clerk shakes his head as you show him the insides of your pockets.")
+						else: engine.text.mw("Though you feel a certain itch looking at the trading-cards, you just can't afford them right now.")
 			if c == 3:
 				engine.text.mw("You leave the toysbme.")
 
@@ -175,6 +185,7 @@ class Places:
 					player.stats["cool"] += 6
 					engine.text.mw("Cruisin' that halfpipe and hitting your grinds perfectly. Cool significantly increased!")
 					engine.text.mw("Skaterpunk: Gnarly, dude. You sponsored or something?")
+					
 					engine.sound.playSound("statup")
 				elif r == 1:
 					player.stats["cool"] -=2
