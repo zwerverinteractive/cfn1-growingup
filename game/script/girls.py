@@ -304,11 +304,11 @@ class Girl():
 class Girls():
 	def __init__(self):
 		self.girls = {
-			"Jenny" : Girl("Jenny", girl["Jenny"]),
-			"Zoe" : Girl("Zoe", girl["Zoe"]),
-			"Lisa" : Girl("Lisa", girl["Lisa"]),
+			"Jenny" : 	Girl("Jenny", girl["Jenny"]),
+			"Zoe" : 		Girl("Zoe", girl["Zoe"]),
+			"Lisa" : 		Girl("Lisa", girl["Lisa"]),
 			"Miranda" : Girl("Miranda", girl["Miranda"]),
-			"Tanya" : Girl("Tanya", girl["Tanya"]),
+			"Tanya" : 	Girl("Tanya", girl["Tanya"]),
 			}
 			
 	def update(self):

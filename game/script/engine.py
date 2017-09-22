@@ -20,13 +20,13 @@ class Engine():
 		os.environ["SDL_VIDEO_CENTERED"] = "1"
 		pygame.mixer.pre_init()
 		pygame.init()
-		info = pygame.display.Info()
+		self.info = pygame.display.Info()
 		pygame.display.set_caption("Popetown kisses v0.8.1")
 		#pygame.mouse.set_visible(False)
 		#pygame.event.set_grab(True)
 		self.clock = pygame.time.Clock()
-		self.wres = (info.current_w, info.current_h); self.sres = (128, 128)
-		self.window = pygame.display.set_mode(self.wres, RESIZABLE)
+		self.wres = (800, 600); self.sres = (128, 128); flags = 0#pygame.FULLSCREEN | pygame.DOUBLEBUF
+		self.window = pygame.display.set_mode(self.wres, flags)
 		self.screen = pygame.Surface(self.sres)
 		self.gscreen = pygame.Surface((1280,128))
 		self.controls = Controls()
@@ -36,13 +36,31 @@ class Engine():
 		pygame.transform.scale(self.screen, self.wres, self.window)
 		pygame.display.flip()
 		self.sound.playMusic("title")
+		self.fullscreen = True
 		while True:
+
 			self.controls.update()
 			if self.controls.buttons["up"]:
 				self.screen.fill((0,0,0))
 				pygame.transform.scale(self.screen, self.wres, self.window)
-				pygame.display.flip()	
+				pygame.display.flip()
 				break
+			elif self.controls.buttons["fullscreen"]:
+				print("fs")
+				if self.fullscreen:
+					self.fullscreen = False
+					self.controls.buttons["fullscreen"] = False
+					self.wres = (self.info.current_w, self.info.current_h)
+					self.window = pygame.display.set_mode(self.wres, pygame.FULLSCREEN)
+
+				else:
+					self.fullscreen = True
+					self.controls.buttons["fullscreen"] = False
+					self.wres = (800, 600)
+					self.window = pygame.display.set_mode(self.wres, 0)
+					
+				pygame.transform.scale(self.screen, self.wres, self.window)
+				pygame.display.flip()
 			elif self.controls.buttons["quit"]:
 				self.close()
 		self.objects = []
@@ -61,6 +79,24 @@ class Engine():
 		while self.running:
 			self.clock.tick(30)
 			self.controls.update()
+			
+			if self.controls.buttons["fullscreen"]:
+				print("fs")
+				if self.fullscreen:
+					self.fullscreen = False
+					self.controls.buttons["fullscreen"] = False
+					self.wres = (self.info.current_w, self.info.current_h)
+					self.window = pygame.display.set_mode(self.wres, pygame.FULLSCREEN)
+				else:
+					self.fullscreen = True
+					self.controls.buttons["fullscreen"] = False
+					self.wres = (800, 600)
+					self.window = pygame.display.set_mode(self.wres, 0)
+					
+				pygame.transform.scale(self.screen, self.wres, self.window)
+				pygame.display.flip()
+			
+			
 			self.gscreen.blit(self.room.surf, (0,0))
 			c = engine.room.current_room
 			if c == "a1" or c == "a2" or c == "b1" or c == "b2":

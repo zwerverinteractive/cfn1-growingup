@@ -12,6 +12,7 @@ class Controls():
 			"watch":	pygame.K_TAB,
 			"start": 		pygame.K_RETURN,
 			"quit":		pygame.K_ESCAPE,
+			"fullscreen": pygame.K_f,
 			}
 			
 		self.buttons = {}
