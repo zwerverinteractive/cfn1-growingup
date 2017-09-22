@@ -25,8 +25,8 @@ class Engine():
 		#pygame.mouse.set_visible(False)
 		#pygame.event.set_grab(True)
 		self.clock = pygame.time.Clock()
-		self.wres = (info.current_w, info.current_h); self.sres = (128, 128); flags = 0#pygame.FULLSCREEN | pygame.DOUBLEBUF
-		self.window = pygame.display.set_mode(self.wres, flags)
+		self.wres = (info.current_w, info.current_h); self.sres = (128, 128)
+		self.window = pygame.display.set_mode(self.wres, RESIZABLE)
 		self.screen = pygame.Surface(self.sres)
 		self.gscreen = pygame.Surface((1280,128))
 		self.controls = Controls()
