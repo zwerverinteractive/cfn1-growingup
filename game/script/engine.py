@@ -28,11 +28,29 @@ class Engine():
 		self.window = pygame.display.set_mode(self.wres, flags)
 		self.screen = pygame.Surface(self.sres)
 		self.gscreen = pygame.Surface((1280,128))
+		self.controls = Controls()
+		self.sound = Sound()
+		
+		title = pygame.image.load("data/image/titlecard.png").convert()
+		self.screen.blit(title, (0,0))
+		pygame.transform.scale(self.screen, self.wres, self.window)
+		pygame.display.flip()
+		self.sound.playMusic("title")
+		while True:
+			self.controls.update()
+			if self.controls.buttons["up"]:
+				self.screen.fill((0,0,0))
+				pygame.transform.scale(self.screen, self.wres, self.window)
+				pygame.display.flip()	
+				break
+			
+			
+
+
+
 		self.objects = []
 		self.time = Time()
 		self.text = Text()
-		self.controls = Controls()
-		self.sound = Sound()
 		self.images = Images()
 		self.room = Room()
 		self.places = Places()
