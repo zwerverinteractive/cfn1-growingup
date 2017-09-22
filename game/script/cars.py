@@ -23,6 +23,6 @@ class Car():
 		if self.v2[0] > 1280 or self.v2[0] < -80:
 			self.alive = False
 			
-		if self.v2[0] < engine.player.rect[0]+5 and self.v2[0] > engine.player.rect[0]-5 and self.passed == False:
+		if self.v2[0]+40 < engine.player.rect[0]+10 and self.v2[0]+40 > engine.player.rect[0]-10 and self.passed == False:
 			self.passed = True
 			engine.sound.playSound("car")

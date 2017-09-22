@@ -10,6 +10,7 @@ class Places:
 		if location == "office supply":
 			c = engine.text.ch(["Buy a pen. 5$", "Buy a piece of paper. 1$", "leave"])
 			if c == 0:
+				engine.text.mw("A pen, together with paper, allows you to write poems at the lake.")
 				if player.inventory["pen"] == False:
 					if player.money > 5:
 						player.money -= 5
@@ -20,6 +21,7 @@ class Places:
 				else: engine.text.mw("You have no need for another pen as you know perfectly well how not to lose it.")
 			if c == 1:
 				if player.inventory["paper"] == False:
+					engine.text.mw("Paper, together with a pen, allows you to write poems at the lake.")
 					if player.money > 1:
 						player.money -= 1
 						player.inventory["paper"] = True
@@ -33,6 +35,7 @@ class Places:
 		elif location == "clothing store":
 			c = engine.text.ch(["Buy tuxedo. 150$", "Buy dress 200$", "Buy sunglasses. 25$", "leave"])
 			if c == 0:
+				engine.text.mw("Impress your friends with this wonderful tux!")
 				if player.inventory["tuxedo"] == False:
 					if player.money > 150:
 						player.money -= 150
@@ -43,6 +46,7 @@ class Places:
 				else: engine.text.mw("You already own a tuxedo.")
 
 			if c == 1:
+				engine.text.mw("For a moment you think about who would want a dress like this.")
 				if player.inventory["dress"] == False:
 					if player.money > 200:
 						player.money -= 200
@@ -54,22 +58,26 @@ class Places:
 						
 			if c == 2:
 				if player.inventory["sunglasses"] == False:
+					engine.text.mw("Makes you look cool.")
 					if player.money > 25:
 						player.money -= 25
 						player.inventory["sunglasses"] = True
 						engine.sound.playSound("buy")
 						engine.text.mw("Nonchalantly you throw the money on the counter and put on the sunglasses. Bad to the bone, you think to yourself.")
+						engine.text.mw("Cool increased significantly.")
+						engine.player.stats["cool"] += 5
 					else: engine.text.mw("Though these sunglasses would look really cool, but you simple can't afford them.")
 				else: engine.text.mw("You already own a pair of sunglasses.")
 			if c == 3:
 				engine.text.mw("You leave the clothing store.")
 
 		elif location == "toy store":
-			c = engine.text.ch(["Buy skateboard. 100$", "Buy basketball 50$", "Buy trading-cards. 10$", "leave"])
+			c = engine.text.ch(["Buy skateboard. 50$", "Buy basketball 25$", "Buy trading-cards. 10$", "leave"])
 			if c == 0:
+				engine.text.mw("Owning this allows you to move almost twice as fast!")
 				if player.inventory["skateboard"] == False:
-					if player.money > 100:
-						player.money -= 100
+					if player.money > 50:
+						player.money -= 50
 						player.inventory["skateboard"] = True
 						engine.sound.playSound("buy")
 						engine.text.mw("You pull your fingers over the wheel, making them purr for a good few seconds and hand over the money.")
@@ -77,6 +85,7 @@ class Places:
 					else: engine.text.mw("You imagine yourself riding the curbs, wind in your hair. Sadly your purse is too light.")
 				else: engine.text.mw("You already own a skateboard.")
 			if c == 1:
+				engine.text.mw("With this you can finally play basketball with basketball guy.")
 				if player.inventory["basketball"] == False:
 					if player.money > 50:
 						player.money -= 50
@@ -86,6 +95,7 @@ class Places:
 					else: engine.text.mw("That ball... is too expensive.")
 				else: engine.text.mw("You have no need for another basketball.")
 			if c == 2:
+				engine.text.mw("Collect all 100 of them!")
 				if player.inventory["tradingcards"] > 100:
 					engine.text.mw("There's no need to buy any more trading-cards. Your collection is complete!")
 				else:
@@ -118,20 +128,22 @@ class Places:
 				engine.text.mw("You leave the toysbme.")
 
 		elif location == "art store":
-			c = engine.text.ch(["Buy paint. 50$", "Buy brush. 5$", "Buy canvas. 10$", "leave"])
+			c = engine.text.ch(["Buy paint. 25$", "Buy brush. 10$", "Buy canvas. 5$", "leave"])
 			if c == 0:
+				engine.text.mw("Paint, together with a brush and canvas allows you to paint in the park.")
 				if player.inventory["paint"] == False:
-					if player.money > 50:
-						player.money -= 50
+					if player.money > 25:
+						player.money -= 25
 						player.inventory["paint"] = True
 						engine.sound.playSound("buy")
 						engine.text.mw("You take from the shelves all the colors of the rainbow and give the artisan some money.")
 					else: engine.text.mw("With all that paint you could make a really pretty painting. Sadly, you don't have enough money.")
 				else: engine.text.mw("You already have enough paint.")
 			if c == 1:
+				engine.text.mw("A brush, together with paint and canvas allows you to paint in the park.")
 				if player.inventory["brush"] == False:
-					if player.money > 5:
-						player.money -= 5
+					if player.money > 10:
+						player.money -= 10
 						player.inventory["brush"] = True
 						engine.sound.playSound("buy")
 						engine.text.mw("You put the brush under your nose, pretending it to be a moustache before handing over the money.")
@@ -139,9 +151,10 @@ class Places:
 				else: engine.text.mw("You already have a brush.")
 						
 			if c == 2:
+				engine.text.mw("A canvas, together with a brush and paint allows you to paint in the park. One canvas is good for one painting.")
 				if player.inventory["canvas"] == False:
-					if player.money > 10:
-						player.money -= 10
+					if player.money > 5:
+						player.money -= 5
 						player.inventory["canvas"] = True
 						engine.sound.playSound("buy")
 						engine.text.mw("You close one eye, staring at the canvas with the other, imagining what to put on it, then pay for it.")

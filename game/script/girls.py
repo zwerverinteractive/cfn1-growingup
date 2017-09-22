@@ -62,8 +62,8 @@ girl["Zoe"] = {
 		(11,	"b1", 	512, "playground"),
 		(15,	"a1",	433, "the toystore"),
 		(17,	"a1",	936, "skatepark"),
-		(19,	"b1",	893, "my home"),
-		(20,	"invisible", 888, "my home"),
+		(19,	"b1",	900, "my home"),
+		(20,	"invisible", 893, "my home"),
 		),
 	"schedule_sunday" : (
 		#time, 	room, 	x
@@ -72,8 +72,8 @@ girl["Zoe"] = {
 		(11,  "b2", 860, "church"),
 		(12,	"a1",	900, "the skatepark"),
 		(16,	"a1",	433, "the toystore"),
-		(19,	"b1",	200, "my home"),
-		(20,	"invisible", 888, "my home"),
+		(19,	"b1",	900, "my home"),
+		(20,	"invisible", 893, "my home"),
 		),
 	}
 
@@ -94,8 +94,8 @@ girl["Lisa"] = {
 		(15, 	"a1", 	1064, "the library"),
 		(17, 	"invisible", 	1075, "the library"),
 		(18, 	"a1", 	1064, "the library"),
-		(19,	"b1",	800, "my home"),
-		(20,	"invisible", 810, "my home"),
+		(19,	"b1",	810, "my home"),
+		(20,	"invisible", 800, "my home"),
 		),
 	"schedule_saturday" : (
 		#time, 	room, 	x
@@ -104,15 +104,15 @@ girl["Lisa"] = {
 		(16,	"invisible",	150, "the office supply store"),
 		(17,	"a1",	135, "the office supply store"),
 		(18,	"a1",	936, "playground"),
-		(19,	"b1",	800, "my home"),
-		(20,	"invisible", 810, "my home"),
+		(19,	"b1",	810, "my home"),
+		(20,	"invisible", 800, "my home"),
 		),
 	"schedule_sunday" : (
 		#time, 	room, 	x
 		(12,	"a1",	900, "playground"),
 		(16,	"a1",	1200, " find a place to be alone"),
-		(19,	"b1",	800, "my home"),
-		(20,	"invisible", 810, "my home"),
+		(19,	"b1",	810, "my home"),
+		(20,	"invisible", 800, "my home"),
 		),
 	}
 	
@@ -181,7 +181,7 @@ girl["Tanya"] = {
 		(13, 	"a1", 	510, "the art store"),
 		(17, 	"invisible", 	520, "the art store"),
 		(18, 	"a1", 	510, "the art store"),
-		(19,	"b1",	100, "my home"),
+		(19,	"a2",	100, "my home"),
 		(20,	"invisible", 110, "my home"),
 		),
 	"schedule_sunday" : (
@@ -189,7 +189,7 @@ girl["Tanya"] = {
 		(12, 	"a2", 	920, "the park"),
 		(13, 	"invisible", 	930, "the park"),
 		(15, 	"a2", 	920, "the park"),
-		(19,	"b1",	100, "my home"),
+		(19,	"a2",	100, "my home"),
 		(20,	"invisible", 110, "my home"),
 		),
 	}
@@ -197,12 +197,12 @@ girl["Tanya"] = {
 class Girl():
 	def __init__(self,name, p):
 		self.name = name
-		self.current_room = "b1"
+		self.properties = p
+		self.current_room = self.properties["home"][1]
 		self.destination = None
 		self.spoken = False
 		self.location = "my home"
 		self.sched = 0
-		self.properties = p
 		x = self.properties["home"][2]
 		self.rect = [x,40,16,32]
 		self.real_rect = [x,40,16,32]

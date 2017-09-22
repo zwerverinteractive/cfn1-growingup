@@ -3,13 +3,14 @@
 class Player():
 	def __init__(self):
 		engine.objects.append(self)
-		self.real_rect = [291,42,16,32]
-		self.rect = [291,42,16,32]
+		x = 291
+		self.real_rect = [x,42,16,32]
+		self.rect = [x,42,16,32]
 		self.surf = pygame.Surface((16,32))
 		self.surf.blit(engine.images.images["player"][0], (0,0))
 		self.surf.set_colorkey((0,255,0))
 		self.kisses = 0
-		self.money = 5
+		self.money = 15
 		self.strike = 0
 		self.poems = []
 		self.job = False
@@ -61,21 +62,26 @@ class Player():
 				self.current_frame += 1
 			if self.inventory["skateboard"] and b["skate"]:
 				engine.sound.playSound("skate")
-				self.speed = 1
+				self.speed = 2.5
 				if b["left"] and self.real_rect[0]+6 > borders[0]:
 					self.real_rect[0] -= self.speed; self.current_animation = "skate_left"
 				elif b["right"] and self.real_rect[0]+6 < borders[1]:
 					self.real_rect[0] += self.speed; self.current_animation = "skate_right"
 			else:
-				self.speed = 1.4
+				self.speed = 1.5
 				if b["left"] and self.real_rect[0]+6 > borders[0]:
 					self.real_rect[0] -= self.speed; self.current_animation = "w_left"
 				elif b["right"] and self.real_rect[0]+6 < borders[1]:
 					self.real_rect[0] += self.speed; self.current_animation = "w_right"
+			
+			if self.speed == 1.5:
+				if (self.current_frame == 1 or self.current_frame == 3) and self.frame_clock == 1:
+					engine.sound.playSound("step")
+
 
 			if self.current_frame >= len(self.animations[self.current_animation])-1:
 				self.current_frame = 0
-				if self.speed == 0.05: engine.sound.playSound("step")
+				
 			self.surf.fill((0,255,0))
 			cf = self.animations[self.current_animation][self.current_frame]
 			self.surf.blit(engine.images.images["player"][cf], (0,0))
@@ -83,7 +89,7 @@ class Player():
 			self.current_frame = 0
 			self.surf.fill((0,255,0))
 			cf = self.animations[self.current_animation][self.current_frame]
-			self.surf.blit(engine.images.images["player"][cf], (0,0))			
+			self.surf.blit(engine.images.images["player"][cf], (0,0))	
 		for x,y in enumerate(self.real_rect):
 			self.rect[x] = round(y)
 
@@ -150,12 +156,12 @@ class Player():
 						if p[3] == "home-down": self.dad = True
 						if (time.hour >= p[3][0][0] and time.hour <= p[3][1][0]) and (time.current_day in p[4]):
 							engine.places.enter(p[2])
-						else: engine.text.mw("Its not open. A sign says open on " + str(p[4]) + " from " + str(p[3][0][0]) + " till " + str(p[3][1][0]) + ".")
+						else: engine.text.mw("Its not open. A sign says open on " + ", ".join(p[4]) + " from " + str(p[3][0][0]) + " till " + str(p[3][1][0]) + ".")
 					else: engine.places.enter(p[2])
 		
 				
 		d1 = [
-			"hey there sleepypants, you finally woke up? there's not a lot to do here on sunday, so why not explore the town a bit?",
+			"hey there sleepypants, you finally woke up? there's not a lot to do here on sunday, except swimming, church and exploring town for a bit.",
 			"Good luck on your first day at school this week!",
 			"Look who we have here. Sleep well? Ready for school?",
 			"Hey, son. Aren't you still a little young to be drinking coffee?",
@@ -191,9 +197,12 @@ class Player():
 
 					if self.rect[0] > 84 and self.rect[0] < 88:
 						engine.text.mw("Dad: " + d1[engine.time.day-1%7])
+						if engine.time.current_day == "saturday": self.money += 15
+							
+						
 						self.rect[0] -= 5;self.real_rect[0] -= 5;
 					elif self.rect[0] > 75 and self.rect[0] < 80:
-						engine.text.mw("Dad: " + d2[engine.time.day-1%7])
+						engine.text.mw("Dad: " + d2[engine.time.day-1%7])						
 						self.firstdad = False
 				elif engine.time.hour >= 18:
 					if self.rect[0] > 84 and self.rect[0] < 88:

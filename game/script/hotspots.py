@@ -24,6 +24,8 @@ spots["a1"] = {
 	"exits" : [
 		["u",(580, 593), "b1", 697],#CROSSROAD L
 		["u",(688, 703), "b2", 585],#CROSSROAD R
+		["d",(120, 140), "a2", 1150],#CROSSING L
+		["d",(1140, 1160), "a2", 130],#CROSSING R
 		],
 	"places": [
 		["u",(145,157), 		"office supply", 	((8,30),(18,00)),	["monday", "tuesday", "wednesday", "thursday", "friday"]],
@@ -41,6 +43,8 @@ spots["a2"] = {
 	"exits" : [
 		["u",(580, 593), "b2", 697],#CROSSROAD L
 		["u",(688, 703), "b1", 585],#CROSSROAD R
+		["d",(120, 140), "a1", 1150],#CROSSING L
+		["d",(1140, 1160), "a1", 130],#CROSSING R
 		],
 	"places": [
 		["u",(210,322), 		"playground", 	None,	["sunday","monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]],
@@ -59,6 +63,9 @@ spots["b1"] = {
 		["u",(366, 390), "home-down", 	30],#HOME FRONT DOOR
 		["u",(580, 593), "a2", 			697],#CROSSROAD L
 		["u",(688, 703), "a1", 			585],#CROSSROAD R
+		["d",(120, 140), "b2", 1150],#CROSSING L
+		["d",(1140, 1160), "b2", 130],#CROSSING R
+		
 		],
 	"places": [
 		["u",(980,1144), "basketball court", None,	 ["sunday","monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]],		
@@ -77,9 +84,13 @@ spots["b2"] = {
 	"exits" : [
 		["u",(580, 593), "a1", 697],#CROSSROAD L
 		["u",(688, 703), "a2", 585],#CROSSROAD R
+		["d",(120, 140), "b1", 1150],#CROSSING L
+		["d",(1140, 1160), "b1", 130],#CROSSING R
+		
+		
 		],
 	"places": [
-		["u",(406, 433), 	"pool", 		((10,00),(15,00)), 	["monday", "wednesday", "saturday"]],
+		["u",(406, 433), 	"pool", 		((10,00),(15,00)), 	["sunday", "thursday"]],
 		["u",(755,780), 		"school", 	((8,30),(14,00)),	["monday", "tuesday", "wednesday", "thursday", "friday"]],
 		["u",(904, 929), 	"church", 	((9,00),(11,00)),	["sunday"]],
 		["u",(1020,1042),	"paper", 	((6,00),(15,00)),	["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]],

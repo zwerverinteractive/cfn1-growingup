@@ -18,12 +18,11 @@ class Engine():
 	def load(self):
 		print("Loading engine")
 		os.environ["SDL_VIDEO_CENTERED"] = "1"
-		pygame.mixer.pre_init()
+		pygame.mixer.pre_init(44100, -16, 2, 2048)
+		pygame.mixer.init()
 		pygame.init()
 		self.info = pygame.display.Info()
-		pygame.display.set_caption("Popetown kisses v0.8.1")
-		#pygame.mouse.set_visible(False)
-		#pygame.event.set_grab(True)
+		pygame.display.set_caption("Popetown kisses v0.8.2")
 		self.clock = pygame.time.Clock()
 		self.wres = (800, 600); self.sres = (128, 128); flags = 0#pygame.FULLSCREEN | pygame.DOUBLEBUF
 		self.window = pygame.display.set_mode(self.wres, flags)
@@ -52,13 +51,11 @@ class Engine():
 					self.controls.buttons["fullscreen"] = False
 					self.wres = (self.info.current_w, self.info.current_h)
 					self.window = pygame.display.set_mode(self.wres, pygame.FULLSCREEN)
-
 				else:
 					self.fullscreen = True
 					self.controls.buttons["fullscreen"] = False
 					self.wres = (800, 600)
 					self.window = pygame.display.set_mode(self.wres, 0)
-					
 				pygame.transform.scale(self.screen, self.wres, self.window)
 				pygame.display.flip()
 			elif self.controls.buttons["quit"]:
@@ -95,44 +92,35 @@ class Engine():
 					
 				pygame.transform.scale(self.screen, self.wres, self.window)
 				pygame.display.flip()
-			
-			
+
 			self.gscreen.blit(self.room.surf, (0,0))
 			c = engine.room.current_room
 			if c == "a1" or c == "a2" or c == "b1" or c == "b2":
-				if randint(0,100) == 0:
-					self.cars.append(Car())
+				if randint(0,100) == 0: self.cars.append(Car())
 			for c,car in enumerate(self.cars):
 				car.update()
-				if car.alive == False:
-					del self.cars[c]
-				else:
-					self.gscreen.blit(car.surf, car.v2)
+				if car.alive == False: del self.cars[c]
+				else: self.gscreen.blit(car.surf, car.v2)
 			self.girls.update()
 			self.player.update()
-			self.gscreen.blit(self.player.surf, self.player.rect)	
-			if self.player.rect[0] > 64-8:
-				self.screen.blit(self.gscreen, (-self.player.rect[0]+64-8,0))
-			else:
-				self.screen.blit(self.gscreen, (0,0))
+			self.gscreen.blit(self.player.surf, self.player.rect)
+			if self.player.rect[0] > 64-8 and self.player.rect[0] < 1280-128+8: self.screen.blit(self.gscreen, (-self.player.rect[0]+64-8,0))
+			elif self.player.rect[0] > 500: self.screen.blit(self.gscreen, (-1102,0))
+			else: self.screen.blit(self.gscreen, (0,0))
+			self.screen.blit(self.text.s(" " + self.time.timestring+ " "), (128-24,128-7))
 			self.time.update()
 			self.flip()
 			if self.controls.buttons["quit"]:
 				self.text.mw("Are you sure you want to quit? There is no save feature yet, so you have to start all over next time. Are you sure?")
 				c = self.text.ch(["No way!", "I really have to go.", "I don't know!"])
-				if c == 0:
-					self.text.mw("Cool, lets continue the adventure then!")
-				elif c == 1:
-					self.bye()
+				if c == 0: self.text.mw("Cool, lets continue the adventure then!")
+				elif c == 1: self.bye()
 				else:
 					self.text.mw("Ok, let's flip a coin then! Heads or tails?")
 					c = self.text.ch(["Heads!", "Tails!", "I don't care!"])
 					self.text.mw("Ok, I will now flip the coin....")
-					if c == 0:
-						self.text.mw("Tails, you lose. Goodbye!")
-						self.bye()
-					else:
-						self.text.mw("Tails, you win. Let's continue!")
+					if c == 0: self.text.mw("Tails, you lose. Goodbye!"); self.bye()
+					else: self.text.mw("Tails, you win. Let's continue!")
 					
 
 	def flip(self):
