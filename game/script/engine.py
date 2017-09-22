@@ -20,17 +20,16 @@ class Engine():
 		os.environ["SDL_VIDEO_CENTERED"] = "1"
 		pygame.mixer.pre_init()
 		pygame.init()
-		pygame.display.set_caption("v0.0.1")
-		#pygame.mouse.set_visible(False)
-		#pygame.event.set_grab(True)
+		pygame.display.set_caption("Poptown kisses v0.8.1")
+		pygame.mouse.set_visible(False)
+		pygame.event.set_grab(True)
 		self.clock = pygame.time.Clock()
-		self.wres = (800, 600); self.sres = (128, 128); flags = 0#pygame.FULLSCREEN | pygame.DOUBLEBUF
+		self.wres = (800, 600); self.sres = (128, 128); flags = pygame.FULLSCREEN | pygame.DOUBLEBUF
 		self.window = pygame.display.set_mode(self.wres, flags)
 		self.screen = pygame.Surface(self.sres)
 		self.gscreen = pygame.Surface((1280,128))
 		self.controls = Controls()
 		self.sound = Sound()
-		
 		title = pygame.image.load("data/image/titlecard.png").convert()
 		self.screen.blit(title, (0,0))
 		pygame.transform.scale(self.screen, self.wres, self.window)
@@ -43,11 +42,6 @@ class Engine():
 				pygame.transform.scale(self.screen, self.wres, self.window)
 				pygame.display.flip()	
 				break
-			
-			
-
-
-
 		self.objects = []
 		self.time = Time()
 		self.text = Text()
@@ -65,8 +59,6 @@ class Engine():
 			self.clock.tick()
 			self.controls.update()
 			self.gscreen.blit(self.room.surf, (0,0))
-			
-			#REALLY MESSY CAR CODE BELOW!
 			c = engine.room.current_room
 			if c == "a1" or c == "a2" or c == "b1" or c == "b2":
 				if randint(0,5000) == 0:
@@ -77,26 +69,47 @@ class Engine():
 					del self.cars[c]
 				else:
 					self.gscreen.blit(car.surf, car.v2)
-
 			self.girls.update()
 			self.player.update()
-			self.gscreen.blit(self.player.surf, self.player.rect)
-						
+			self.gscreen.blit(self.player.surf, self.player.rect)	
 			if self.player.rect[0] > 64-8:
 				self.screen.blit(self.gscreen, (-self.player.rect[0]+64-8,0))
 			else:
 				self.screen.blit(self.gscreen, (0,0))
-			
 			self.time.update()
 			self.flip()
 			if self.controls.buttons["quit"]:
-				self.bye()
+				self.text.mw("Are you sure you want to quit? There is no save feature yet, so you have to start all over next time. Are you sure?")
+				c = self.text.ch(["All over? No way!", "I really have to go.", "I don't know!"])
+				if c == 0:
+					self.text.mw("Cool, lets continue the adventure then!")
+				elif c == 1:
+					self.bye()
+				else:
+					self.text.mw("Ok, let's flip a coin then! Heads or tails?")
+					c = self.text.ch(["Heads!", "Tails!", "I don't care!"])
+					self.text.mw("Ok, I will now flip the coin....")
+					if c == 0:
+						self.text.mw("Tails, you lose. Goodbye!")
+						self.bye()
+					else:
+						self.text.mw("Tails, you win. Let's continue!")
+					
 
 	def flip(self):
 		pygame.transform.scale(self.screen, self.wres, self.window)
 		pygame.display.flip()
 		
 	def bye(self):
+		credit = pygame.image.load("data/image/creditcard.png").convert()
+		self.screen.blit(credit, (0,0))
+		pygame.transform.scale(self.screen, self.wres, self.window)
+		pygame.display.flip()
+		self.sound.playMusic("credits")
+		while True:
+			self.controls.update()
+			if self.controls.buttons["up"] or self.controls.buttons["quit"]:
+				break
 		print("bye!")
 		self.running = False
 		pygame.quit()

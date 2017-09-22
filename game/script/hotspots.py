@@ -79,7 +79,7 @@ spots["b2"] = {
 		["u",(688, 703), "a2", 585],#CROSSROAD R
 		],
 	"places": [
-		["u",(406, 433), 	"pool", 		((10,00),(15,00)), 	["saturday"]],
+		["u",(406, 433), 	"pool", 		((10,00),(15,00)), 	["monday", "wednesday", "saturday"]],
 		["u",(755,780), 		"school", 	((8,30),(14,00)),	["monday", "tuesday", "wednesday", "thursday", "friday"]],
 		["u",(904, 929), 	"church", 	((9,00),(11,00)),	["sunday"]],
 		["u",(1020,1042),	"paper", 	((6,00),(15,00)),	["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]],
