@@ -20,7 +20,8 @@ class Engine():
 		os.environ["SDL_VIDEO_CENTERED"] = "1"
 		pygame.mixer.pre_init()
 		pygame.init()
-		pygame.display.set_caption("Poptown kisses v0.8.1")
+		info = pygame.display.Info()
+		pygame.display.set_caption("Popetown kisses v0.8.1")
 		pygame.mouse.set_visible(False)
 		pygame.event.set_grab(True)
 		self.clock = pygame.time.Clock()
