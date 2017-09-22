@@ -2,10 +2,7 @@
 class Sound():
 	def __init__(self):
 		print("Loading sound.")
-		try:
-			pygame.mixer.init()
-		except pygame.error:
-			print >>sys.stderr, "Could not initialize sound system: %s" % exc
+
 		sounds = ["buy", "corner","newspaper","newspaperdone","statup",
 			"step", "talkbeep", "stair", "door", "car", "done", "skate"
 			]

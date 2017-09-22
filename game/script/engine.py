@@ -18,6 +18,7 @@ class Engine():
 	def load(self):
 		print("Loading engine")
 		os.environ["SDL_VIDEO_CENTERED"] = "1"
+		pygame.mixer.pre_init()
 		pygame.init()
 		pygame.display.set_caption("v0.0.1")
 		#pygame.mouse.set_visible(False)

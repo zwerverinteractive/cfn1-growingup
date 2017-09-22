@@ -294,7 +294,11 @@ class Places:
 					p = engine.text.poem()
 					engine.text.mw(p)
 					player.poems.append(p)
+					engine.text.mw("romance and creativity increased.")
 					player.stats["romance"] += 2
+					engine.sound.playSound("statup")
+					player.stats["creativity"] += 1
+					
 				else:
 					engine.text.mw("For some reason sitting here always makes you think about talking to girls and holding their hand.")
 					engine.text.mw("Romance slightly increased.")
@@ -458,8 +462,8 @@ class Places:
 				]
 			
 			if engine.time.hour == 9:
-				engine.time.hour = 10
-				engine.time.minute = 45
+				engine.time.hour = 11
+				engine.time.minute = 00
 				engine.text.mw("You enter the building and after a handshake and some coffee the sermon begins.")
 				engine.text.mw("Preacher: " + choice(preach))
 				engine.text.mw("People pray and go away leaving you with nothing to say. Creativity slightly increased.")
