@@ -43,6 +43,8 @@ class Engine():
 				pygame.transform.scale(self.screen, self.wres, self.window)
 				pygame.display.flip()	
 				break
+			elif self.controls.buttons["quit"]:
+				self.close()
 		self.objects = []
 		self.time = Time()
 		self.text = Text()
@@ -111,6 +113,12 @@ class Engine():
 			self.controls.update()
 			if self.controls.buttons["up"] or self.controls.buttons["quit"]:
 				break
+		print("bye!")
+		self.running = False
+		pygame.quit()
+		sys.exit()
+		
+	def close(self):
 		print("bye!")
 		self.running = False
 		pygame.quit()
